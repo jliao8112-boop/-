@@ -1,0 +1,2807 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌱 國小數學：核心觀念圖解與易錯陷阱引導家教系統（三～六年級專題＆全卷極速版）</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <!-- Google Fonts Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+      svg: { fontCache: 'local' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .grade-pill-active {
+      background: linear-gradient(135deg, #10b981, #059669) !important;
+      color: #ffffff !important;
+      border-color: #6ee7b7 !important;
+      font-weight: 800;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+    }
+    .grade-tab-active {
+      background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+      color: #0f172a !important;
+      font-weight: 800 !important;
+      border-color: #fde68a !important;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+    .trap-card-wrong {
+      background: linear-gradient(135deg, rgba(127, 29, 29, 0.38), rgba(15, 23, 42, 0.92));
+      border: 1px solid rgba(244, 63, 94, 0.45);
+    }
+    .trap-card-right {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.42), rgba(15, 23, 42, 0.92));
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+    .math-display-box {
+      margin: 0.5rem 0;
+      padding: 0.65rem 0.9rem;
+      border-radius: 0.75rem;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      overflow-x: auto;
+      text-align: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #ecfdf5;
+    }
+    .math-final-answer-box {
+      margin-top: 0.75rem;
+      padding: 0.7rem 0.95rem;
+      border-radius: 0.75rem;
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.65), rgba(15, 23, 42, 0.95));
+      border: 1.5px solid rgba(16, 185, 129, 0.7);
+      color: #ecfdf5;
+      font-weight: 700;
+    }
+    /* ★ 國小專屬教科書級直式分數元件（零亂碼、零代碼殘留、PDF 匯出 100% 精準對齊） */
+    .v-frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-size: 0.92em;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+    .v-frac > .v-num {
+      border-bottom: 1.5px solid currentColor;
+      padding: 0 3px 1px 3px;
+      display: block;
+      text-align: center;
+    }
+    .v-frac > .v-den {
+      padding: 1px 3px 0 3px;
+      display: block;
+      text-align: center;
+    }
+    .ans-badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.22);
+      color: #6ee7b7;
+      border: 1.5px solid #10b981;
+      padding: 1px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      margin: 0 2px;
+    }
+    /* ★ A4 白底 PDF 預覽與列印專屬高對比樣式 */
+    #pdfPrintableSheet, .pdf-print-sheet {
+      color: #0f172a !important;
+      background: #ffffff !important;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif !important;
+    }
+    #pdfPrintableSheet .math-display-box,
+    .pdf-print-sheet .math-display-box {
+      background: #f8fafc !important;
+      border: 1.5px solid #94a3b8 !important;
+      color: #0f172a !important;
+      font-weight: 800 !important;
+    }
+    #pdfPrintableSheet .math-final-answer-box,
+    .pdf-print-sheet .math-final-answer-box {
+      background: #ecfdf5 !important;
+      border: 2px solid #059669 !important;
+      color: #064e3b !important;
+    }
+    #pdfPrintableSheet .ans-badge,
+    .pdf-print-sheet .ans-badge {
+      background: #d1fae5 !important;
+      color: #064e3b !important;
+      border: 1.5px solid #059669 !important;
+      font-weight: 800 !important;
+    }
+    #pdfPrintableSheet strong,
+    #pdfPrintableSheet .md-strong,
+    .pdf-print-sheet strong,
+    .pdf-print-sheet .md-strong {
+      color: #1e1b4b !important;
+      background-color: #fef08a !important;
+      padding: 1px 5px !important;
+      border-radius: 4px !important;
+      font-weight: 800 !important;
+    }
+    #pdfPrintableSheet .md-h3,
+    .pdf-print-sheet .md-h3 {
+      color: #064e3b !important;
+      border-bottom: 2px solid #059669 !important;
+      font-weight: 800 !important;
+    }
+    #pdfPrintableSheet .md-h4,
+    .pdf-print-sheet .md-h4 {
+      color: #1e3a8a !important;
+      font-weight: 800 !important;
+    }
+    .pdf-avoid-break {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    /* ★ 徹底解決列印時第 2~6 頁疊印問題：列印時隱藏所有 fixed 視窗，僅顯示靜態流 #printDedicatedMount */
+    #printDedicatedMount {
+      display: none;
+    }
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm;
+      }
+      html, body {
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      body > *:not(#printDedicatedMount) {
+        display: none !important;
+      }
+      #printDedicatedMount {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+      .pdf-avoid-break {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen lg:h-screen flex flex-col lg:overflow-hidden font-sans">
+
+  <!-- 全域 Toast 通知 -->
+  <div id="toastContainer" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- ================= 頂部導覽列 ================= -->
+  <header class="bg-slate-900 border-b border-slate-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 shrink-0">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center font-bold text-lg shadow-lg shadow-emerald-600/30 shrink-0">
+        <i class="fa-solid fa-seedling"></i>
+      </div>
+      <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <h1 class="font-extrabold text-sm text-white">🌱 國小數學：核心觀念圖解 ＆ 易錯陷阱診斷引導家教系統</h1>
+          <span class="text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full font-semibold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            嚴禁超綱 x,y・線段圖解・易錯陷阱雷達・L1極速檢核
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-400" id="topStatusBanner">● 專為國小三～六年級打造：先抓「觀念盲點」與「常見粗心陷阱」，再用視覺化線段圖一步步引導！</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-1.5">
+      <button onclick="openTrapRadarModal()" class="text-xs bg-rose-600/25 hover:bg-rose-600/40 text-rose-200 border border-rose-500/50 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 font-semibold shadow-sm" title="檢視國小1～6年級各年級易錯觀念與8大易錯陷阱圖鑑">
+        <i class="fa-solid fa-triangle-exclamation text-rose-400"></i> 國小8大易錯圖鑑
+      </button>
+      <button onclick="scrollToGradeMisconceptions()" class="text-xs bg-amber-500/25 hover:bg-amber-500/40 text-amber-200 border border-amber-400/50 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 font-bold shadow-sm" title="依據國小一～六年級列出每個年級最容易錯誤的觀念">
+        <i class="fa-solid fa-graduation-cap text-amber-300"></i> 1～6年級易錯觀念表
+      </button>
+      <button onclick="triggerDiagnosticQuiz()" class="text-xs bg-amber-600/25 hover:bg-amber-600/40 text-amber-200 border border-amber-500/50 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 font-semibold" title="出一題專門測試小朋友有沒有掉進同型陷阱的診斷變題">
+        <i class="fa-solid fa-bullseye text-amber-400"></i> 易錯避坑變題挑戰
+      </button>
+      <button onclick="generateMistakeNoteCard()" class="text-xs bg-purple-600/25 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 font-semibold">
+        <i class="fa-solid fa-book-medical"></i> 生成錯題訂正卡
+      </button>
+      <button onclick="toggleFullSolution()" class="text-xs bg-emerald-600/25 hover:bg-emerald-600/40 text-emerald-200 border border-emerald-500/50 px-2.5 py-1.5 rounded-lg transition font-semibold">
+        <i class="fa-solid fa-list-check mr-1"></i>展開 / 收合完整詳解
+      </button>
+      <button onclick="openPdfModal()" class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white border border-indigo-400/50 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1.5 font-bold shadow">
+        <i class="fa-solid fa-file-pdf"></i> 匯出觀念與易錯講義 PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= 主畫面三欄工作區 ================= -->
+  <main class="flex-1 grid grid-cols-1 lg:grid-cols-12 lg:overflow-hidden">
+
+    <!-- 【左欄 3 cols】API 極速設定、國小年級選擇、考卷上傳與 8 大易錯核心題庫 -->
+    <aside class="lg:col-span-3 bg-slate-900/75 border-b lg:border-b-0 lg:border-r border-slate-800 flex flex-col lg:overflow-y-auto p-3.5 space-y-3">
+
+      <!-- 1. Gemini API Key 與付費/免費自動偵測 -->
+      <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
+        <div class="flex items-center justify-between">
+          <label for="apiKeyInput" class="text-xs font-bold text-amber-300"><i class="fa-solid fa-bolt mr-1"></i>1. Gemini API 與極速分流</label>
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" class="text-[11px] text-emerald-400 underline hover:text-emerald-300">申請 Key</a>
+        </div>
+        <div class="flex gap-1.5">
+          <input id="apiKeyInput" type="password" placeholder="貼上 AIzaSy... 自動偵測付費/免費"
+            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-emerald-500 focus:outline-none">
+          <button onclick="saveAndDetectModels()" id="detectModelBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1.5 rounded-lg text-xs font-bold shrink-0 transition">
+            儲存並偵測
+          </button>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="text-[11px] text-slate-400 shrink-0">模型：</span>
+          <select id="modelSelect" onchange="onChangeModelSelect(this.value)"
+            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-[11px] text-emerald-300 font-mono focus:outline-none">
+            <option value="gemini-2.5-flash">gemini-2.5-flash （國小極速零延遲推薦）</option>
+            <option value="gemini-2.0-flash">gemini-2.0-flash (高穩定極速)</option>
+            <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite (超高速輕量)</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between gap-1.5 bg-slate-900/90 border border-slate-800 rounded-lg px-2 py-1">
+          <div class="flex items-center gap-1.5 min-w-0">
+            <span id="apiTierDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+            <span id="apiTierBadgeText" class="text-[11px] font-bold text-emerald-300 truncate">💳 付費版 API：6路極速併發 (0思考延遲)</span>
+          </div>
+          <button onclick="toggleApiBillingTier()" id="toggleApiTierBtn" class="text-[10px] bg-slate-800 hover:bg-emerald-600/30 text-amber-300 border border-amber-500/40 px-1.5 py-0.5 rounded shrink-0 transition">
+            切換付費/免費
+          </button>
+        </div>
+        <div id="apiStatus" class="text-[11px] text-emerald-400 leading-snug">🟢 國小 L1 簡易快速檢核已鎖定：關閉冗長思考鏈 （零等待延遲），專注觀念圖解與易錯診斷！</div>
+      </div>
+
+      <!-- 2. 國小年級階段與引導語言適配 -->
+      <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-emerald-300"><i class="fa-solid fa-child-reaching mr-1"></i>2. 選擇國小年級（自動調整引導語言）</span>
+          <span id="gradeLevelTag" class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-semibold">高年級 (五、六年級)</span>
+        </div>
+        <div class="grid grid-cols-3 gap-1.5">
+          <button onclick="setElementarySubGrade('低年級')" id="subg-低年級" class="text-[11px] py-1.5 px-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition">
+            🐣 一、二年級<br><span class="text-[9px] opacity-75">畫圈數數・加減</span>
+          </button>
+          <button onclick="setElementarySubGrade('中年級')" id="subg-中年級" class="text-[11px] py-1.5 px-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition">
+            🐥 三、四年級<br><span class="text-[9px] opacity-75">整數四則・周長</span>
+          </button>
+          <button onclick="setElementarySubGrade('高年級')" id="subg-高年級" class="grade-pill-active text-[11px] py-1.5 px-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 transition">
+            🦅 五、六年級<br><span class="text-[9px] opacity-90">基準量・速率扇形</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. 考卷拍照上傳 / 輸入題目 / 14題全卷實測 -->
+      <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2 flex-1 flex flex-col">
+        <div class="flex items-center justify-between gap-1">
+          <label class="text-xs font-bold text-emerald-300"><i class="fa-solid fa-camera mr-1"></i>3. 拍考卷／輸入國小題目</label>
+          <div class="flex items-center gap-1">
+            <button onclick="loadGrade6Full14Exam()" class="text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-md transition font-bold flex items-center gap-1" title="載入國小六年級 14 題常考易錯全卷">
+              <i class="fa-solid fa-layer-group"></i> 國小14題易錯全卷
+            </button>
+            <button onclick="clearCurrentProblem()" class="text-[10px] bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded-md transition font-semibold">
+              <i class="fa-solid fa-broom"></i> 清空
+            </button>
+          </div>
+        </div>
+
+        <label class="border-2 border-dashed border-emerald-500/45 hover:border-emerald-400 rounded-xl p-2.5 flex flex-col items-center justify-center cursor-pointer bg-slate-900/60 transition min-h-[84px]">
+          <input type="file" id="examImageInput" accept="image/*" class="hidden" onchange="onUploadExamImage(event)">
+          <div id="previewBox" class="text-center space-y-1">
+            <i class="fa-solid fa-cloud-arrow-up text-xl text-emerald-400"></i>
+            <p class="text-[11px] text-slate-200 font-semibold">點擊上傳國小考卷照片，或按 Ctrl+V 貼上截圖</p>
+            <p class="text-[10px] text-slate-400">支援單題深度診斷 ＆ 整張考卷自動拆題</p>
+          </div>
+        </label>
+
+        <textarea id="questionInput" rows="2" placeholder="輸入或貼上國小數學題目（系統將自動拆解：核心觀念 ＋ 線段圖解 ＋ 3大易錯陷阱 ＋ 不劇透引導）..."
+          class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-emerald-500 focus:outline-none">一條緞帶剪去全長的 3/8 後，還剩下 45 公分，請問這條緞帶原來長多少公分？</textarea>
+
+        <div class="grid grid-cols-2 gap-1.5">
+          <button id="analyzeBtn" onclick="analyzeCurrentQuestion()" class="bg-emerald-600 hover:bg-emerald-500 text-white py-2 px-2 rounded-xl text-xs font-bold shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-1">
+            <i class="fa-solid fa-magnifying-glass-chart"></i> 觀念與易錯解析
+          </button>
+          <button id="splitExamBtn" onclick="scanAndSplitExam()" class="bg-indigo-600 hover:bg-indigo-500 text-white py-2 px-2 rounded-xl text-xs font-bold shadow-lg shadow-indigo-600/20 transition flex items-center justify-center gap-1 border border-indigo-400/40">
+            <i class="fa-solid fa-list-ol"></i> 整張考卷拆題
+          </button>
+        </div>
+
+        <!-- 國小 8 大最常錯觀念題庫（一鍵點擊立即體驗） -->
+        <div class="pt-2 border-t border-slate-800 space-y-1.5 mt-auto">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] text-amber-300 font-bold"><i class="fa-solid fa-fire-flame-curved mr-1"></i>國小 8 大必考易錯陷阱題庫（點選秒解）：</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1 text-[11px]">
+            <button onclick="loadTopicPreset('base_compare')" class="bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-slate-800 rounded-lg py-1.5 px-2 text-left truncate font-medium">
+              🎀 1. 基準量與剩下分率逆推
+            </button>
+            <button onclick="loadTopicPreset('fraction_unit')" class="bg-slate-900 hover:bg-slate-800 text-rose-300 border border-slate-800 rounded-lg py-1.5 px-2 text-left truncate font-medium">
+              🪢 2. 分率(無單位) vs 實際量
+            </button>
+            <button onclick="loadTopicPreset('tree_interval')" class="bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-800 rounded-lg py-1.5 px-2 text-left truncate font-medium">
+              🌲 3. 植樹與封閉圖形間隔
+            </button>
+            <button onclick="loadTopicPreset('scale_area')" class="bg-slate-900 hover:bg-slate-800 text-sky-300 border border-slate-800 rounded-lg py-1.5 px-2 text-left truncate font-medium">
+              🗺️ 4. 比例尺面積平方與公頃
+            </button>
+            <button onclick="loadTopicPreset('sector_perimeter')" class="bg-slate-900 hover:bg-slate-800 text-purple-300 border border-slate-800 rounded-lg py-1.5 px-2 text-left truncate font-medium">
+              🍕 5. 扇形周長(忘加2條半徑)
+            </button>
+            <button onclick="loadTopicPreset('speed_average')" class="bg-slate-900 hover:bg-slate-800 text-pink-300 border border-slate-800 rounded-lg py-1.5 px-2 text-left truncate font-medium">
+              🏃 6. 往返平均速率＆追趕
+            </button>
+            <button onclick="loadTopicPreset('discount_markup')" class="bg-slate-900 hover:bg-slate-800 text-indigo-300 border border-slate-800 rounded-lg py-1.5 px-2 text-left truncate font-medium">
+              🏷️ 7. 成本加成為定價再打折
+            </button>
+            <button onclick="loadTopicPreset('chicken_rabbit_coin')" class="bg-slate-900 hover:bg-slate-800 text-teal-300 border border-slate-800 rounded-lg py-1.5 px-2 text-left truncate font-medium">
+              🪙 8. 雞兔硬幣假設替換法
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 【中欄 5 cols】核心觀念拆解 ＋ 動態 SVG 線段圖解 ＋ 🚨 易錯陷阱雷達對照 ＋ 不劇透思考步驟 -->
+    <section class="lg:col-span-5 bg-slate-900/35 border-b lg:border-b-0 lg:border-r border-slate-800 flex flex-col lg:overflow-y-auto p-4 space-y-3.5">
+
+      <!-- 📑 整份考卷逐題導覽列 -->
+      <div id="examQueueBar" class="hidden bg-gradient-to-r from-emerald-950/90 via-slate-900 to-indigo-950/60 border border-emerald-500/50 rounded-xl p-3 space-y-2 shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-1.5">
+          <div class="flex items-center gap-1.5">
+            <span class="bg-emerald-500 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+              <i class="fa-solid fa-list-check"></i> 整份考卷逐題觀念引導
+            </span>
+            <span id="examQueueTitle" class="text-xs font-bold text-emerald-200 truncate">國小六年級常考易錯 14 題全卷</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span id="examQueueProgress" class="text-[10px] bg-slate-800 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono">
+              第 1 / 14 題
+            </span>
+            <button onclick="closeExamQueue()" class="text-xs text-slate-400 hover:text-rose-300 px-1">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+        <div id="examQuestionPills" class="flex flex-wrap gap-1.5"></div>
+        <div class="flex items-center justify-between gap-1.5 pt-1 border-t border-slate-800/80">
+          <button onclick="prevExamQ()" id="prevQBtn" class="flex-1 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 rounded-lg py-1 px-2 text-[11px] font-semibold transition">
+            <i class="fa-solid fa-backward-step mr-1"></i>上一題
+          </button>
+          <button onclick="nextExamQ()" id="nextQBtn" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg py-1 px-2 text-[11px] font-bold transition shadow">
+            下一題 <i class="fa-solid fa-forward-step ml-1"></i>
+          </button>
+          <button onclick="batchPreSolveAllQuestions()" id="batchSolveBtn" class="bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-400/40 rounded-lg py-1 px-2.5 text-[11px] font-semibold transition flex items-center gap-1">
+            <i class="fa-solid fa-bolt"></i> 全卷極速預解
+          </button>
+        </div>
+      </div>
+
+      <!-- 1. 題目與核心單元橫幅 -->
+      <div class="bg-slate-900 border border-emerald-500/40 rounded-xl p-3.5 space-y-2 shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-1.5">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span id="unitBadge" class="text-xs font-extrabold bg-emerald-600 text-white px-2.5 py-0.5 rounded-full">
+              🌱 分數四則與基準量逆推
+            </span>
+            <span id="trapCategoryBadge" class="text-[11px] bg-rose-500/20 text-rose-300 border border-rose-500/40 px-2.5 py-0.5 rounded-full font-bold">
+              🚨 易錯指數：★★★★★（最常混淆「剪去」與「剩下的」）
+            </span>
+          </div>
+          <span id="verifyFastBadge" class="text-[10px] bg-teal-500/20 text-teal-300 border border-teal-500/30 px-2 py-0.5 rounded-full font-mono">
+            ✔ 逆運算驗算通過
+          </span>
+        </div>
+        <div class="bg-slate-950/90 border border-slate-800 rounded-lg p-3">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[11px] font-bold text-emerald-400">📄 題目內容（已圈出關鍵題眼）：</span>
+            <span class="text-[10px] text-amber-300 font-semibold" id="keySignalTag">🔍 關鍵字：剪去全長的 3/8、剩下 45 公分</span>
+          </div>
+          <div id="problemDisplay" class="text-xs sm:text-sm text-white leading-relaxed font-medium"></div>
+        </div>
+      </div>
+
+      <!-- 2. 🧠 核心觀念白話拆解 ＋ 📏 動態視覺化線段圖解區 -->
+      <div class="bg-gradient-to-br from-indigo-950/50 via-slate-900 to-slate-900 border border-indigo-500/40 rounded-xl p-3.5 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xs font-extrabold text-indigo-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-lightbulb text-amber-400"></i>
+            <span>一、核心觀念白話拆解（不用 $x, y$ 方程式，畫線段圖一眼看懂！）</span>
+          </h2>
+          <span class="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded font-semibold">視覺化基準量模型</span>
+        </div>
+        <div id="coreConceptBox" class="text-xs text-slate-200 leading-relaxed space-y-1"></div>
+
+        <!-- 動態 SVG 視覺化線段圖／幾何圖解容器 -->
+        <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-3">
+          <div class="text-[10px] text-sky-300 font-bold mb-1.5 flex items-center justify-between">
+            <span><i class="fa-solid fa-ruler-horizontal mr-1"></i>動態圖解輔助模型（幫助小朋友把文字變成畫面）：</span>
+            <span id="diagramTypeLabel" class="text-slate-400">分數基準量線段圖</span>
+          </div>
+          <div id="visualDiagramContainer" class="w-full overflow-x-auto flex justify-center py-1"></div>
+        </div>
+      </div>
+
+      <!-- 3. 🚨 國小生最容易踩的「易錯陷阱診斷室」（❌ 常見錯誤 vs ⭕ 正確觀念對照） -->
+      <div class="bg-slate-900 border border-rose-500/45 rounded-xl p-3.5 space-y-2.5 shadow-lg">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xs font-extrabold text-rose-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-shield-virus text-rose-400"></i>
+            <span>二、易錯陷阱雷達：為什麼小朋友常在這題被扣分？</span>
+          </h2>
+          <span class="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">考場避坑必讀</span>
+        </div>
+
+        <div id="errorTrapsContainer" class="space-y-2.5"></div>
+      </div>
+
+      <!-- 4. 🗺️ 不劇透分步引導地圖（一步一腳印，帶孩子自己想出算式） -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xs font-extrabold text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-shoe-prints text-emerald-400"></i>
+            <span>三、不劇透 3 步思考階梯（點選步驟可切換引導焦點）</span>
+          </h2>
+          <span id="stepProgressBadge" class="text-[11px] bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full font-bold">第 1 / 3 步</span>
+        </div>
+        <div id="stepsContainer" class="space-y-2"></div>
+      </div>
+
+      <!-- 5. 完整詳解與逆運算驗算小幫手（預設收合防照抄） -->
+      <div id="fullSolutionPanel" class="hidden bg-slate-900 border border-emerald-500/50 rounded-xl p-4 space-y-2.5 shadow-xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <span class="text-xs font-extrabold text-emerald-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-check-double"></i>
+            <span>四、國小標準四則算式詳解 ＆ 逆運算驗算步驟</span>
+          </span>
+          <button onclick="copySolutionText()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-emerald-300 px-2 py-0.5 rounded border border-slate-700">
+            <i class="fa-regular fa-copy mr-1"></i>複製詳解
+          </button>
+        </div>
+        <div id="fullSolutionText" class="text-xs text-slate-200 leading-relaxed space-y-2"></div>
+      </div>
+
+      <!-- 6. 📚 國小一～六年級：各年級最容易錯誤的數學觀念總表（依年級分類診斷 ＆ 一鍵練習） -->
+      <div id="gradeMisconceptionsSection" class="bg-slate-900 border border-amber-500/45 rounded-xl p-3.5 space-y-3 shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+          <div>
+            <h2 class="text-xs font-extrabold text-amber-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-graduation-cap text-amber-400"></i>
+              <span>五、國小一～六年級：各年級最容易錯誤的觀念總整理（依年級診斷）</span>
+            </h2>
+            <p class="text-[11px] text-slate-400 mt-0.5">點選年級即可檢視該年級最常被扣分的觀念盲點，點擊「帶入代表題演練」可立即圖解引導！</p>
+          </div>
+          <button onclick="openPdfModal()" class="text-[10px] bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-400/40 px-2.5 py-1 rounded-lg font-bold transition shrink-0">
+            <i class="fa-solid fa-file-pdf mr-1"></i>印出年級易錯講義
+          </button>
+        </div>
+
+        <!-- 1～6 年級切換頁籤 -->
+        <div class="grid grid-cols-4 sm:grid-cols-7 gap-1.5" id="gradeMisconceptionTabs">
+          <button onclick="selectMisconceptionGrade('1年級')" id="gm-tab-1年級" class="text-[11px] py-1.5 px-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 transition">1年級</button>
+          <button onclick="selectMisconceptionGrade('2年級')" id="gm-tab-2年級" class="text-[11px] py-1.5 px-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 transition">2年級</button>
+          <button onclick="selectMisconceptionGrade('3年級')" id="gm-tab-3年級" class="text-[11px] py-1.5 px-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 transition">3年級</button>
+          <button onclick="selectMisconceptionGrade('4年級')" id="gm-tab-4年級" class="text-[11px] py-1.5 px-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 transition">4年級</button>
+          <button onclick="selectMisconceptionGrade('5年級')" id="gm-tab-5年級" class="text-[11px] py-1.5 px-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-700 text-slate-300 transition">5年級</button>
+          <button onclick="selectMisconceptionGrade('6年級')" id="gm-tab-6年級" class="grade-tab-active text-[11px] py-1.5 px-2 rounded-lg bg-slate-950 border border-slate-700 text-slate-300 transition">6年級</button>
+          <button onclick="selectMisconceptionGrade('全部')" id="gm-tab-全部" class="text-[11px] py-1.5 px-2 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-700 text-amber-300 font-semibold transition col-span-4 sm:col-span-1">全部年級</button>
+        </div>
+
+        <!-- 各年級易錯觀念卡片容器 -->
+        <div id="gradeMisconceptionsContainer" class="space-y-2.5 max-h-[420px] overflow-y-auto pr-1"></div>
+      </div>
+
+    </section>
+
+    <!-- 【右欄 4 cols】互動式「抓蟲診斷小遊戲」＋ 蘇格拉底溫柔家教一對一引導 -->
+    <section class="lg:col-span-4 bg-slate-950 flex flex-col lg:overflow-hidden min-h-[440px]">
+
+      <!-- 頂部：互動式「找錯抓蟲小偵探」快速診斷列 -->
+      <div class="bg-slate-900/90 border-b border-slate-800 p-3 space-y-2">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xs font-extrabold text-white flex items-center gap-1.5">
+              <i class="fa-solid fa-user-doctor text-emerald-400"></i>
+              <span>一對一觀念引導家教 ＆ 易錯把脈</span>
+            </h3>
+            <p class="text-[11px] text-slate-400">不直接給答案，先幫孩子抓出「為什麼卡住」或「哪裡算反了」</p>
+          </div>
+        </div>
+
+        <!-- 小朋友常見卡關一鍵求救按鈕 -->
+        <div class="flex flex-wrap gap-1.5">
+          <button onclick="diagnoseSelectedMistake(0)" id="quickTrapBtn0" class="text-[11px] bg-rose-950/70 hover:bg-rose-900/80 text-rose-200 border border-rose-500/40 px-2.5 py-1 rounded-lg transition font-medium">
+            🤔 為什麼不能直接用 45 × 3/8？
+          </button>
+          <button onclick="askSimpleHint()" class="text-[11px] bg-amber-950/70 hover:bg-amber-900/80 text-amber-200 border border-amber-500/40 px-2.5 py-1 rounded-lg transition font-medium">
+            💡 用生活例子提示我這一步！
+          </button>
+          <button onclick="quickRevealAnswer()" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-700 px-2.5 py-1 rounded-lg transition font-medium">
+            👀 我算好了，對答案與驗算
+          </button>
+        </div>
+      </div>
+
+      <!-- 對話訊息區 -->
+      <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+
+      <!-- 對話與手寫算式上傳列 -->
+      <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
+        <label class="cursor-pointer bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-700 px-2.5 py-2 rounded-xl text-xs flex items-center gap-1 shrink-0 transition" title="拍下小朋友的手寫算式，AI 自動抓出『粗心陷阱』與『觀念錯誤』！">
+          <input type="file" accept="image/*" class="hidden" onchange="onUploadHandwriting(event)">
+          <i class="fa-solid fa-camera-retro"></i> 拍手寫算式抓錯
+        </label>
+        <input id="chatInput" type="text" placeholder="輸入你的想法或算式（例如：1 - 3/8 = 5/8，或 45 ÷ 5/8 = 72）..."
+          onkeydown="if(event.key==='Enter') sendChatMessage()"
+          class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:border-emerald-500 focus:outline-none">
+        <button id="sendChatBtn" onclick="sendChatMessage()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition">
+          送出
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= 彈窗 1：🚨 國小數學 8 大最常扣分易錯陷阱總覽圖鑑 ================= -->
+  <div id="trapRadarModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-slate-900 border border-rose-500/40 rounded-2xl max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-rose-600 flex items-center justify-center text-white">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white">🚨 國小數學三～六年級「8 大最常扣分易錯陷阱」診斷圖鑑</h3>
+            <p class="text-[11px] text-rose-300">點擊任一卡片即可直接載入該題型並觀看線段圖解與避坑引導</p>
+          </div>
+        </div>
+        <button onclick="closeTrapRadarModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs">關閉</button>
+      </div>
+      <div id="trapEncyclopediaGrid" class="flex-1 overflow-y-auto p-5 grid grid-cols-1 md:grid-cols-2 gap-3.5 bg-slate-950/90"></div>
+    </div>
+  </div>
+
+  <!-- ================= 彈窗 2：📄 A4 國小觀念圖解與易錯訂正講義 PDF 匯出 ================= -->
+  <div id="pdfModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-5 py-3.5 bg-slate-950 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-file-pdf text-rose-400 text-lg"></i>
+          <div>
+            <h3 class="text-sm font-bold text-white">A4 國小數學「觀念圖解 ＆ 易錯陷阱訂正講義」PDF 預覽</h3>
+            <p class="text-[11px] text-slate-400">適合列印給小朋友貼在錯題本或考前複習使用</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="downloadPdf()" id="downloadPdfBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition">
+            <i class="fa-solid fa-download mr-1"></i>下載 PDF 講義
+          </button>
+          <button onclick="printPdf()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition">
+            <i class="fa-solid fa-print mr-1"></i>直接列印
+          </button>
+          <button onclick="closePdfModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs">關閉</button>
+        </div>
+      </div>
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6 bg-slate-800/60">
+        <!-- PDF 預覽年級篩選切換列 -->
+        <div class="max-w-3xl mx-auto mb-3 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-bold text-amber-300"><i class="fa-solid fa-list-check mr-1"></i>PDF 附錄「各年級易錯觀念表」顯示範圍：</span>
+          <div class="flex flex-wrap gap-1">
+            <button onclick="setPdfGradeTableMode('current')" id="pdfModeCurrentBtn" class="text-[11px] bg-emerald-600 text-white px-2.5 py-1 rounded-lg font-bold transition">僅印本年級易錯表（推薦 2 頁精簡版）</button>
+            <button onclick="setPdfGradeTableMode('all')" id="pdfModeAllBtn" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-amber-200 border border-amber-500/40 px-2.5 py-1 rounded-lg font-bold transition">印出國小 1～6 年級完整易錯總表</button>
+          </div>
+        </div>
+
+        <div id="pdfPrintableSheet" class="bg-white text-slate-950 rounded-xl p-6 sm:p-8 max-w-3xl mx-auto shadow-xl space-y-4">
+          <div class="border-b-2 border-emerald-800 pb-3 flex items-start justify-between gap-2">
+            <div>
+              <h2 class="text-lg font-extrabold text-slate-950">🌱 國小數學「核心觀念圖解 ＆ 易錯陷阱避坑」專屬訂正講義</h2>
+              <p class="text-xs text-slate-800 font-semibold mt-0.5" id="pdfSubtitle">適用年級：高年級（五、六年級）｜ 零代數超綱・視覺化線段圖解</p>
+            </div>
+            <span class="text-[11px] font-extrabold bg-rose-100 text-rose-900 border-2 border-rose-400 px-2.5 py-1 rounded shrink-0">
+              🚨 高對比清晰印刷版
+            </span>
+          </div>
+          <div class="space-y-1.5 pdf-avoid-break">
+            <div class="text-sm font-extrabold text-emerald-950 bg-emerald-100/80 px-2.5 py-1 rounded border-l-4 border-emerald-700">一、題目與關鍵字圈選</div>
+            <div id="pdfProblem" class="text-sm text-slate-950 bg-slate-50 border-2 border-slate-300 rounded-lg p-3.5 font-semibold leading-relaxed"></div>
+          </div>
+          <div class="space-y-1.5 pdf-avoid-break">
+            <div class="text-sm font-extrabold text-indigo-950 bg-indigo-100/80 px-2.5 py-1 rounded border-l-4 border-indigo-700">二、核心觀念白話拆解 ＆ 線段圖解</div>
+            <div id="pdfConcept" class="text-xs sm:text-sm text-slate-950 bg-indigo-50/70 border-2 border-indigo-300 rounded-lg p-3.5 leading-relaxed font-medium space-y-1.5"></div>
+            <div id="pdfDiagram" class="border-2 border-slate-300 rounded-lg p-3 bg-white flex justify-center"></div>
+          </div>
+          <div class="space-y-1.5 pdf-avoid-break">
+            <div class="text-sm font-extrabold text-rose-950 bg-rose-100/80 px-2.5 py-1 rounded border-l-4 border-rose-700">三、🚨 本題易錯陷阱對照表（❌ 為什麼這樣算會錯 vs ⭕ 正確觀念）</div>
+            <div id="pdfTraps" class="space-y-2 text-xs sm:text-sm"></div>
+          </div>
+          <div class="space-y-1.5 pdf-avoid-break">
+            <div class="text-sm font-extrabold text-emerald-950 bg-emerald-100/80 px-2.5 py-1 rounded border-l-4 border-emerald-700">四、分步思考引導與標準詳解（含逆運算驗算）</div>
+            <div id="pdfSolution" class="text-xs sm:text-sm text-slate-950 bg-emerald-50/50 border-2 border-emerald-300 rounded-lg p-3.5 leading-relaxed font-medium"></div>
+          </div>
+          <div class="space-y-1.5 pt-2 border-t-2 border-dashed border-slate-300">
+            <div class="text-sm font-extrabold text-amber-950 bg-amber-100/90 px-2.5 py-1 rounded border-l-4 border-amber-700" id="pdfGradeTableTitle">五、📚 國小各年級最容易錯誤的數學觀念重點提醒表</div>
+            <div id="pdfGradeMisconceptionsTable" class="space-y-2 text-xs text-slate-950"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專供瀏覽器列印與 PDF 轉換之頂層無裁切靜態容器（防止 fixed 彈窗跨頁疊印） -->
+  <div id="printDedicatedMount"></div>
+
+  <!-- ================= 核心腳本：國小觀念圖解、易錯陷阱雷達與 AI 極速引導引擎 ================= -->
+  <script>
+    function safeGetStorage(k, fallback = "") {
+      try { return localStorage.getItem(k) || fallback; } catch (e) { return fallback; }
+    }
+    function safeSetStorage(k, v) {
+      try { localStorage.setItem(k, v); } catch (e) {}
+    }
+    function safeRemoveStorage(k) {
+      try { localStorage.removeItem(k); } catch (e) {}
+    }
+
+    function showToast(message, type = "info") {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const colors = {
+        info: "bg-slate-900 border-indigo-500/60 text-indigo-200",
+        success: "bg-slate-900 border-emerald-500/60 text-emerald-200",
+        warn: "bg-slate-900 border-amber-500/60 text-amber-200",
+        error: "bg-slate-900 border-rose-500/60 text-rose-200"
+      };
+      const toast = document.createElement('div');
+      toast.className = `pointer-events-auto border rounded-xl px-3.5 py-2.5 text-xs shadow-xl transition-all duration-300 flex items-start gap-2 ${colors[type] || colors.info}`;
+      toast.innerHTML = `<i class="fa-solid fa-circle-info mt-0.5 shrink-0"></i><div class="leading-relaxed">${message}</div>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // ================= 全域狀態 =================
+    let apiBillingTier = safeGetStorage('GEMINI_BILLING_TIER', 'paid');
+    let lastFreeCallTs = 0;
+    let currentSubGrade = '高年級';
+    let currentImageBase64 = null;
+    let currentImageMime = 'image/jpeg';
+    let currentStepIdx = 0;
+    let chatHistory = [];
+    let examQueue = [];
+    let activeExamIdx = 0;
+    let batchSolving = false;
+
+    // ================= 國小 8 大必考易錯陷阱精選題庫（含 SVG 視覺圖解、常見錯誤診斷、避坑口訣與變題） =================
+    const ELEMENTARY_TOPICS = {
+      base_compare: {
+        id: "base_compare",
+        unit: "🌱 分數四則與基準量逆推",
+        trapRating: "🚨 易錯指數：★★★★★（最常把「剪掉的」當成「剩下的」，或把除法寫成乘法）",
+        keySignal: "🔍 關鍵字：「剪去全長的 3/8」、「還剩下 45 公分」、「求原來長」",
+        problem: "一條緞帶剪去全長的 $\\frac{3}{8}$ 後，還剩下 $45$ 公分，請問這條緞帶**原來長**多少公分？",
+        coreConcept: `
+          <div>1. **誰是基準量（1 份）？**「全長的 $\\frac{3}{8}$」代表把**整條緞帶原長**當作基準量 **$1$（也就是 $\\frac{8}{8}$）**。</div>
+          <div>2. **量與分率要「對齊」才能相除！**題目給的 $45$ 公分是**「剩下的長度」**，所以我們必須先算出**「剩下的佔全長的幾分之幾」**（$1 - \\frac{3}{8} = \\frac{5}{8}$），再用「剩下的長度 $\\div$ 剩下的分率」逆推出全長！</div>
+        `,
+        diagramType: "分數線段圖（全長 8 等份模型）",
+        svgDiagram: `
+          <svg viewBox="0 0 520 115" class="w-full max-w-[500px] h-auto">
+            <text x="12" y="20" fill="#94a3b8" font-size="11" font-weight="bold">整條緞帶原長 = 基準量 1 (平分成 8 等份)：</text>
+            <rect x="12" y="30" width="180" height="34" rx="6" fill="#be123c" fill-opacity="0.35" stroke="#f43f5e" stroke-width="1.5"/>
+            <text x="102" y="51" fill="#fda4af" font-size="12" font-weight="bold" text-anchor="middle">剪去 3/8 (3份)</text>
+            <rect x="196" y="30" width="300" height="34" rx="6" fill="#047857" fill-opacity="0.45" stroke="#10b981" stroke-width="2"/>
+            <text x="346" y="51" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">還剩下 1 - 3/8 = 5/8 (5份 = 45 公分)</text>
+            <path d="M 196 72 L 196 80 L 496 80 L 496 72" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+            <text x="346" y="98" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">💡 5 份是 45 公分 ➔ 1 份是 45 ÷ 5 = 9 公分 ➔ 全長 8 份 = 72 公分！</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤一（張冠李戴）：直接拿 $45 \\div \\frac{3}{8} = 120$ 公分",
+            whyWrong: "因為 $45$ 公分是「剩下的長度」，而 $\\frac{3}{8}$ 是「剪掉的比例」！把「剩下的公分數」除以「剪掉的比例」，兩者根本不是同一段緞帶！",
+            rightFix: "⭕ **正確避坑**：先算剩下的分率 $1 - \\frac{3}{8} = \\frac{5}{8}$，再用 $45 \\div \\frac{5}{8} = 72$ 公分（或想成 5 份是 45 公分，1 份是 9 公分，8 份是 72 公分）。"
+          },
+          {
+            wrongTitle: "❌ 常見錯誤二（乘除搞反）：直接拿 $45 \\times (1 - \\frac{3}{8}) = 28\\frac{1}{8}$ 公分",
+            whyWrong: "還沒剪之前，原來的緞帶一定比剩下的 $45$ 公分還要**長**！如果乘以 $\\frac{5}{8}$，算出來反而變短（只有 28.125 公分），一驗算就知道不合理！",
+            rightFix: "⭕ **正確避坑**：已知「部分量」要回推「母體全長（基準量）」，必須用**除法**：$\\text{部分量} \\div \\text{對應分率} = \\text{全長}$。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜找對應分率】把全長當作 1，剪去 3/8 後，剩下的佔全長的幾分之幾？", why: "因為 45 公分是『剩下的』，所以要先算出『剩下的分率』才能配對。" },
+          { step: 2, title: "【Step 2｜先算 1 小份】剩下的 5/8（也就是 5 等份）剛好是 45 公分，那 1 等份是幾公分？", why: "用線段圖想：5 格共 45 公分，除以 5 就能知道 1 格幾公分！" },
+          { step: 3, title: "【Step 3｜算出全長並逆驗算】全長有 8 等份（或用 45 ÷ 5/8），全長是多少公分？", why: "算完後把答案乘以 5/8，檢查是不是真的剩下 45 公分！" }
+        ],
+        fullSolution: `### 🌱 國小高年級觀念圖解標準詳解
+#### 步驟一：算出「剩下部分」佔全長的幾分之幾
+把緞帶原長當作基準量 $1$，剪去 $\\frac{3}{8}$ 後，剩下的比例為：
+$$1 - \\frac{3}{8} = \\frac{5}{8}$$
+#### 步驟二：由「剩下長度 $\\div$ 剩下分率」求原長（兩種想法都通！）
+- **方法 A（線段圖份數法，最不容易錯）**：
+  全長平分成 $8$ 份，剩下的 $5$ 份是 $45$ 公分：
+  $$1\\text{ 份} = 45 \\div 5 = 9\\text{（公分）}，\\quad \\text{全長 } 8\\text{ 份} = 9 \\times 8 = 72\\text{（公分）}$$
+- **方法 B（分數除法基準量公式）**：
+  $$45 \\div \\frac{5}{8} = 45 \\times \\frac{8}{5} = 72\\text{（公分）}$$
+#### 步驟三：🔍 考場 5 秒逆運算驗算
+原長 $72$ 公分，剪去 $72 \\times \\frac{3}{8} = 27$ 公分，剩下 $72 - 27 = 45$ 公分（完全吻合 ✔）！
+
+**最終答案**：$\\boxed{72\\text{ 公分}}$`,
+        firstQuestion: "嗨！我們先看上面的彩色線段圖喔！把整條緞帶當作 $1$（平分成 $8$ 等份），剪走了 $\\frac{3}{8}$（$3$ 等份），請問**還剩下的部分**佔全長的幾分之幾（幾等份）呢？",
+        variation: {
+          prompt: "【🎯 易錯避坑變題挑戰】一本故事書，小明第一天看了全書的 $\\frac{2}{7}$，還剩下 $100$ 頁沒看，請問這本故事書全部有幾頁？（小心：別拿 $100 \\div \\frac{2}{7}$ 喔！）",
+          ans: "剩下 $1 - \\frac{2}{7} = \\frac{5}{7}$，全書共有 $100 \\div \\frac{5}{7} = \\boxed{140\\text{ 頁}}$（1 份是 20 頁，7 份共 140 頁）！"
+        }
+      },
+
+      fraction_unit: {
+        id: "fraction_unit",
+        unit: "🪢 分數陷阱：「有單位」vs「沒單位(分率)」",
+        trapRating: "🚨 易錯指數：★★★★★（全班錯最多！把「1/4」和「1/4 公尺」當成一樣的東西）",
+        keySignal: "🔍 關鍵字：「用去全長的 1/4（無單位＝倍數）」vs「再用去 1/4 公尺（有單位＝實際長度）」",
+        problem: "有一條長 $2$ 公尺的彩帶，姐姐做勞作先用去**全長的 $\\frac{1}{4}$**，做卡片又用去 **$\\frac{1}{4}$ 公尺**，請問這條彩帶還剩下多少公尺？",
+        coreConcept: `
+          <div>1. **沒有寫單位的「全長的 $\\frac{1}{4}$」是比例（分率）**：必須用**全長 $2$ 公尺去乘**，所以第一次用掉的是 $2 \\times \\frac{1}{4} = \\frac{1}{2}$ 公尺！</div>
+          <div>2. **有寫單位的「$\\frac{1}{4}$ 公尺」是真實長度**：就是尺上量出來的 $0.25$ 公尺，**千萬不能再乘以 $2$**！</div>
+        `,
+        diagramType: "有單位 vs 無單位雙層對照線段圖",
+        svgDiagram: `
+          <svg viewBox="0 0 520 115" class="w-full max-w-[500px] h-auto">
+            <text x="12" y="20" fill="#94a3b8" font-size="11" font-weight="bold">彩帶總長 = 2 公尺：</text>
+            <rect x="12" y="30" width="120" height="34" rx="6" fill="#be123c" fill-opacity="0.4" stroke="#f43f5e" stroke-width="1.5"/>
+            <text x="72" y="51" fill="#fda4af" font-size="11" font-weight="bold" text-anchor="middle">全長的1/4 = 2×1/4 = 1/2m</text>
+            <rect x="136" y="30" width="60" height="34" rx="6" fill="#d97706" fill-opacity="0.4" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="166" y="51" fill="#fde68a" font-size="11" font-weight="bold" text-anchor="middle">1/4 公尺</text>
+            <rect x="200" y="30" width="296" height="34" rx="6" fill="#047857" fill-opacity="0.45" stroke="#10b981" stroke-width="2"/>
+            <text x="348" y="51" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">剩下：2 - 1/2 - 1/4 = 1 又 1/4 公尺</text>
+            <text x="260" y="95" fill="#fbbf24" font-size="12" font-weight="bold" text-anchor="middle">⚠️ 避坑口訣：沒單位要乘全長，有單位直接加減！</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤一（把分率跟長度直接相加）：寫成 $2 \\times (1 - \\frac{1}{4} - \\frac{1}{4}) = 1$ 公尺",
+            whyWrong: "第二個「$\\frac{1}{4}$ 公尺」後面有寫「公尺」，它不是全長的 $\\frac{1}{4}$，不能跟第一個 $\\frac{1}{4}$ 當成比例扣掉！",
+            rightFix: "⭕ **正確避坑**：看到分數先圈後面**有沒有單位**！沒單位的先換成實際公尺（$2 \\times \\frac{1}{4} = \\frac{1}{2}$ 公尺），全部都有「公尺」單位後才能相減！"
+          },
+          {
+            wrongTitle: "❌ 常見錯誤二（把兩個都當成實際公尺）：寫成 $2 - \\frac{1}{4} - \\frac{1}{4} = 1\\frac{1}{2}$ 公尺",
+            whyWrong: "第一個「全長的 $\\frac{1}{4}$」是指 $2$ 公尺的四分之一（其實是 $\\frac{2}{4} = \\frac{1}{2}$ 公尺），不是只有 $\\frac{1}{4}$ 公尺喔！",
+            rightFix: "⭕ **正確避坑**：第一次用掉 $2 \\times \\frac{1}{4} = \\frac{1}{2}$ 公尺，第二次用掉 $\\frac{1}{4}$ 公尺，剩下 $2 - \\frac{1}{2} - \\frac{1}{4} = 1\\frac{1}{4}$ 公尺。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜換算無單位分率】2 公尺的『全長的 1/4』實際上是幾公尺？", why: "先把沒有單位的比例換成有單位的『公尺』，才能跟後面的公尺加減。" },
+          { step: 2, title: "【Step 2｜確認第二次用量】做卡片用去的『1/4 公尺』需要再乘以 2 嗎？", why: "它已經有單位『公尺』了，代表就是實際長度 1/4 公尺！" },
+          { step: 3, title: "【Step 3｜總長減去兩次用量】用 2 公尺減去第一次和第二次用掉的公尺數", why: "算出最後剩下的彩帶長度。" }
+        ],
+        fullSolution: `### 🌱 國小高年級「有單位 vs 無單位」標準詳解
+#### 步驟一：將沒有單位的「全長的 $\\frac{1}{4}$」算出實際長度
+$$2 \\times \\frac{1}{4} = \\frac{2}{4} = \\frac{1}{2}\\text{（公尺）}$$
+#### 步驟二：用總長 $2$ 公尺依序減去兩次實際用掉的長度
+第二次用去的是實際長度 $\\frac{1}{4}$ 公尺，直接相減：
+$$2 - \\frac{1}{2} - \\frac{1}{4} = 1\\frac{1}{2} - \\frac{1}{4} = 1\\frac{1}{4}\\text{（公尺）}$$
+
+**最終答案**：$\\boxed{1\\frac{1}{4}\\text{ 公尺}}$（或 $\\boxed{1.25\\text{ 公尺}}$）`,
+        firstQuestion: "這題是月考最愛考的『雙胞胎陷阱題』！我們先看第一個條件：彩帶全長 $2$ 公尺，先用去**『全長的 $\\frac{1}{4}$』**，請問第一次實際上用掉了幾公尺呢？",
+        variation: {
+          prompt: "【🎯 易錯避坑變題挑戰】一包麵粉重 $4$ 公斤，媽媽做蔥油餅用去**整包的 $\\frac{1}{4}$**，做饅頭又用去 **$\\frac{1}{4}$ 公斤**，請問還剩下幾公斤麵粉？",
+          ans: "第一次用去 $4 \\times \\frac{1}{4} = 1$ 公斤，第二次用去 $\\frac{1}{4}$ 公斤，剩下 $4 - 1 - \\frac{1}{4} = \\boxed{2\\frac{3}{4}\\text{ 公斤}}$！"
+        }
+      },
+
+      tree_interval: {
+        id: "tree_interval",
+        unit: "🌲 最大公因數與植樹間隔問題",
+        trapRating: "🚨 易錯指數：★★★★☆（最常搞混「兩端都種要+1」與「封閉圖形不用+1」）",
+        keySignal: "🔍 關鍵字：「三角形公園周界（封閉圖形）」、「等距離」、「三個頂點都要立」、「最少幾盞」",
+        problem: "三角形公園三邊長分別為 $48$ 公尺、$60$ 公尺、$72$ 公尺，今在三邊等距離立路燈，且三個頂點都要立，請問**最少**共需立幾盞路燈？",
+        coreConcept: `
+          <div>1. **為什麼求最大公因數？**「等距離」且「頂點都要立」代表間距必須同時整除 $48, 60, 72$；要求「路燈**最少**」，間距就要**最大**，所以先求最大公因數 $(48, 60, 72) = 12$ 公尺！</div>
+          <div>2. **封閉圖形（圓形、三角形、多邊形池塘）：路燈數 $=$ 總間隔數（不加 1 也不減 1）！**因為繞一圈首尾相接，起點跟終點是同一顆頂點，不會多出一盞，也不必扣掉頂點！</div>
+        `,
+        diagramType: "植樹問題三型態對照圖（兩端種 vs 封閉圓圈 vs 兩端不種）",
+        svgDiagram: `
+          <svg viewBox="0 0 520 120" class="w-full max-w-[500px] h-auto">
+            <rect x="8" y="10" width="160" height="98" rx="8" fill="#1e293b" stroke="#475569"/>
+            <text x="88" y="28" fill="#fde68a" font-size="11" font-weight="bold" text-anchor="middle">① 直線兩端都種</text>
+            <text x="88" y="52" fill="#e2e8f0" font-size="12" text-anchor="middle">🌳—🌳—🌳—🌳</text>
+            <text x="88" y="75" fill="#94a3b8" font-size="10" text-anchor="middle">3個間隔，4棵樹</text>
+            <text x="88" y="95" fill="#fbbf24" font-size="11" font-weight="bold" text-anchor="middle">棵數 = 間隔 + 1</text>
+
+            <rect x="180" y="10" width="160" height="98" rx="8" fill="#064e3b" fill-opacity="0.5" stroke="#10b981" stroke-width="2"/>
+            <text x="260" y="28" fill="#6ee7b7" font-size="11" font-weight="bold" text-anchor="middle">② 封閉圖形(本題公園)</text>
+            <text x="260" y="52" fill="#e2e8f0" font-size="12" text-anchor="middle">🔺 首尾相接繞一圈</text>
+            <text x="260" y="75" fill="#a7f3d0" font-size="10" text-anchor="middle">三邊共 4+5+6=15 間隔</text>
+            <text x="260" y="95" fill="#34d399" font-size="11" font-weight="bold" text-anchor="middle">棵數 = 間隔數 (不加減)</text>
+
+            <rect x="352" y="10" width="160" height="98" rx="8" fill="#1e293b" stroke="#475569"/>
+            <text x="432" y="28" fill="#fda4af" font-size="11" font-weight="bold" text-anchor="middle">③ 直線兩端都不種</text>
+            <text x="432" y="52" fill="#e2e8f0" font-size="12" text-anchor="middle">🏠—🌳—🌳—🏠</text>
+            <text x="432" y="75" fill="#94a3b8" font-size="10" text-anchor="middle">3個間隔，2棵樹</text>
+            <text x="432" y="95" fill="#f87171" font-size="11" font-weight="bold" text-anchor="middle">棵數 = 間隔 - 1</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤一（誤套直線兩端都種公式）：算出 15 個間隔後又 $+1 = 16$ 盞，或每邊各 $+1$ 再忘記扣重複頂點",
+            whyWrong: "三角形公園是「繞一圈的封閉圖形」，第一個頂點跟最後一個頂點疊在一起，所以「間隔數」剛好就等於「路燈數」！如果三邊各自 $+1$（變 $5+6+7=18$），三個頂點會被重複算兩次，還得 $-3$ 才會回到 $15$！",
+            rightFix: "⭕ **正確避坑**：凡是**圓形池塘、三角形或正方形周界**種樹／立路燈，直接用**「總周長 $\\div$ 最大間距」**就是答案，不用加 1 也不用減 3！"
+          },
+          {
+            wrongTitle: "❌ 常見錯誤二（公因數與公倍數搞反）：看到「最少幾盞」就去求最小公倍數",
+            whyWrong: "「路燈要最少」代表兩盞路燈之間的「距離要拉到最大」，在邊長裡面切分段是求**最大公因數**，不是公倍數！",
+            rightFix: "⭕ **正確避坑**：切東西、分段、種樹求間距 $\\implies$ 找**公因數**；排積木、發車時間同時會合 $\\implies$ 找**公倍數**。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜求最大間距】要讓路燈數量『最少』，間距要最大，求 48、60、72 的最大公因數", why: "間距必須同時整除三條邊長，才會在三個頂點都剛好立到路燈。" },
+          { step: 2, title: "【Step 2｜算公園總周長】把三角形公園的三邊長 48 + 60 + 72 加起來", why: "封閉圖形可以直接用總周長除以間距算出總間隔數。" },
+          { step: 3, title: "【Step 3｜封閉圖形間隔數＝路燈數】總周長除以最大間距，需要再 +1 或 -3 嗎？", why: "繞一圈首尾相接，間隔數就直接等於路燈總數！" }
+        ],
+        fullSolution: `### 🌱 國小高年級「封閉圖形植樹問題」標準詳解
+#### 步驟一：求三邊長的最大公因數（最大間距）
+要使路燈盞數最少，相鄰兩盞路燈的距離必須最大：
+$$(48,\\; 60,\\; 72) = 12\\text{（公尺）}$$
+#### 步驟二：計算三角形周長除以最大間距（封閉圖形：盞數 $=$ 間隔數）
+$$(48 + 60 + 72) \\div 12 = 180 \\div 12 = 15\\text{（盞）}$$
+*(註：若分邊算間隔再減重複頂點：$(4 + 1) + (5 + 1) + (6 + 1) - 3 = 18 - 3 = 15$ 盞，結果完全相同！)*
+
+**最終答案**：$\\boxed{15\\text{ 盞}}$`,
+        firstQuestion: "我們先想第一個關鍵觀念：想讓路燈的數量**『越少越好』**，那麼兩盞路燈之間的距離應該要**『越大越好』**還是**『越小越好』**？請先算出 $48, 60, 72$ 的最大公因數是多少呢？",
+        variation: {
+          prompt: "【🎯 易錯避坑變題挑戰】在一條長 $100$ 公尺的筆直馬路**一側**種樹，每隔 $20$ 公尺種一棵，如果**兩端都不種**（因為兩端各有電線桿），請問共需種幾棵樹？",
+          ans: "間隔數 $= 100 \\div 20 = 5$ 個間隔；因為**兩端都不種**，棵數 $= 5 - 1 = \\boxed{4\\text{ 棵}}$！"
+        }
+      },
+
+      scale_area: {
+        id: "scale_area",
+        unit: "🗺️ 比例尺與實際面積單位換算",
+        trapRating: "🚨 易錯指數：★★★★★（最常把圖上面積只乘 1 次比例尺，或把 1 公頃當成 100 平方公尺）",
+        keySignal: "🔍 關鍵字：「比例尺 1 : 2000」、「長 4 公分、寬 3 公分」、「實際面積是幾公頃」",
+        problem: "在比例尺 $1 : 2000$ 的地圖上，有一塊長 $4$ 公分、寬 $3$ 公分的長方形農地，請問這塊農地的**實際面積**是多少**公頃**？",
+        coreConcept: `
+          <div>1. **黃金鐵律：先換「實際長、實際寬」，最後才乘起來算面積！**因為長放大 $2000$ 倍、寬也放大 $2000$ 倍，面積其實是放大 $2000 \\times 2000 = 4,000,000$ 倍！先換長寬最不會漏乘！</div>
+          <div>2. **面積單位口訣**：$1\\text{ 公畝} = 100\\text{ m}^2$（邊長 10m 正方形），**$1\\text{ 公頃} = 100\\text{ 公畝} = 10,000\\text{ 平方公尺}$**（邊長 100m 的大操場）！</div>
+        `,
+        diagramType: "比例尺長寬雙向放大與公頃換算圖",
+        svgDiagram: `
+          <svg viewBox="0 0 520 115" class="w-full max-w-[500px] h-auto">
+            <rect x="15" y="25" width="90" height="65" rx="6" fill="#1e3a8a" fill-opacity="0.5" stroke="#60a5fa" stroke-width="1.5"/>
+            <text x="60" y="52" fill="#93c5fd" font-size="11" font-weight="bold" text-anchor="middle">地圖上</text>
+            <text x="60" y="70" fill="#e2e8f0" font-size="11" text-anchor="middle">4cm × 3cm</text>
+
+            <text x="165" y="45" fill="#fbbf24" font-size="11" font-weight="bold" text-anchor="middle">長×2000 ➔ 80公尺</text>
+            <path d="M 115 56 L 215 56" stroke="#fbbf24" stroke-width="2"/>
+            <text x="165" y="76" fill="#fbbf24" font-size="11" font-weight="bold" text-anchor="middle">寬×2000 ➔ 60公尺</text>
+
+            <rect x="225" y="15" width="280" height="85" rx="8" fill="#064e3b" fill-opacity="0.5" stroke="#10b981" stroke-width="2"/>
+            <text x="365" y="42" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">實際農地：長 80m × 寬 60m = 4800 平方公尺</text>
+            <text x="365" y="66" fill="#fde68a" font-size="12" font-weight="bold" text-anchor="middle">換算公頃 (÷ 10000) ➔ 0.48 公頃</text>
+            <text x="365" y="88" fill="#94a3b8" font-size="10" text-anchor="middle">(千萬別用 12cm² 只乘一次 2000 喔！)</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤一（面積只乘一次比例尺）：先算 $4 \\times 3 = 12\\text{ cm}^2$，再算 $12 \\times 2000 = 24000\\text{ cm}^2$",
+            whyWrong: "長方形的「長」放大 2000 倍，「寬」也放大 2000 倍！如果先把 $4 \\times 3$ 乘起來，只乘一次 2000，就少放大了一個邊的 2000 倍！",
+            rightFix: "⭕ **正確避坑**：遇到比例尺求面積，**一律先把長、寬各自換成「實際公尺」**（長 $80$ 公尺、寬 $60$ 公尺），再相乘得 $4800$ 平方公尺！"
+          },
+          {
+            wrongTitle: "❌ 常見錯誤二（公頃換算少除兩個 0）：算出 $4800$ 平方公尺後，除以 $100$ 寫成 $48$ 公頃",
+            whyWrong: "除以 $100$ 是「公畝」（$48$ 公畝）！$1$ 公頃是邊長 $100$ 公尺的正方形，所以 $1\\text{ 公頃} = 100 \\times 100 = 10,000\\text{ 平方公尺}$！",
+            rightFix: "⭕ **正確避坑**：平方公尺換公頃要**除以 $10,000$（小數點往左移 4 位）**：$4800 \\div 10000 = 0.48$ 公頃。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜先換實際長與寬】地圖上 1 公分代表實際 2000 公分（20 公尺），長 4cm、寬 3cm 實際是幾公尺？", why: "先換成實際公尺，既能避免少乘一次 2000，又不會後面 0 太多算錯！" },
+          { step: 2, title: "【Step 2｜計算實際平方公尺】用實際長（80 公尺）乘以實際寬（60 公尺）", why: "算出農地的實際面積是幾平方公尺。" },
+          { step: 3, title: "【Step 3｜平方公尺換公頃】1 公頃 = 10000 平方公尺，把面積除以 10000", why: "小數點向左移 4 位，得出正確公頃數。" }
+        ],
+        fullSolution: `### 🌱 國小高年級「比例尺與實際面積」標準詳解
+#### 步驟一：先將地圖上的長、寬換算為「實際公尺」
+比例尺 $1 : 2000$ 代表地圖上 $1$ 公分 $=$ 實際 $2000$ 公分 $= 20$ 公尺：
+$$\\text{實際長} = 4 \\times 20 = 80\\text{（公尺）}$$
+$$\\text{實際寬} = 3 \\times 20 = 60\\text{（公尺）}$$
+#### 步驟二：計算實際面積並換算為公頃（$1\\text{ 公頃} = 10000\\text{ 平方公尺}$）
+$$\\text{實際面積} = 80 \\times 60 = 4800\\text{（平方公尺）}$$
+$$4800 \\div 10000 = 0.48\\text{（公頃）}$$
+
+**最終答案**：$\\boxed{0.48\\text{ 公頃}}$`,
+        firstQuestion: "算比例尺面積有一個『絕對不會錯的秘訣』：千萬不要先算 $4 \\times 3 = 12$！我們先把地圖上 $1$ 公分換成實際公尺：$2000$ 公分等於幾公尺？那地圖上的長 $4$ 公分、寬 $3$ 公分，實際上各是幾公尺呢？",
+        variation: {
+          prompt: "【🎯 易錯避坑變題挑戰】在比例尺 $1 : 5000$ 的地圖上，有一塊邊長 $2$ 公分的正方形公園，請問公園的實際面積是多少**公頃**？",
+          ans: "地圖 1cm = 實際 5000cm = 50公尺；實際邊長 $= 2 \\times 50 = 100$ 公尺，實際面積 $= 100 \\times 100 = 10000$ 平方公尺 $= \\boxed{1\\text{ 公頃}}$！"
+        }
+      },
+
+      sector_perimeter: {
+        id: "sector_perimeter",
+        unit: "🍕 圓與扇形的周長 vs 面積陷阱",
+        trapRating: "🚨 易錯指數：★★★★★（算扇形周長忘記加 2 條半徑，或把直徑當半徑代公式）",
+        keySignal: "🔍 關鍵字：「半徑 10 公分」、「圓心角 72°」、「扇形的周長與面積」",
+        problem: "一個半徑 $10$ 公分、圓心角 $72^\\circ$ 的扇形，請問它的**(1) 面積**大約是多少平方公分？**(2) 周長**大約是多少公分？（圓周率以 $3.14$ 計算）",
+        coreConcept: `
+          <div>1. **扇形佔整個圓的幾分之幾？**一圈圓周角是 $360^\\circ$，所以 $\\frac{72^\\circ}{360^\\circ} = \\frac{1}{5}$（代表它是五分之一個披薩）！</div>
+          <div>2. **扇形周長 $=$ 彎彎的弧長 $+ 2$ 條直直的半徑！**很多小朋友算完弧長就停筆了，忘了披薩要把旁邊兩條切邊（半徑 $10 + 10 = 20$ 公分）圍起來才叫「周長」！</div>
+        `,
+        diagramType: "披薩扇形結構圖（彎弧長 ＋ 兩條直半徑）",
+        svgDiagram: `
+          <svg viewBox="0 0 520 120" class="w-full max-w-[500px] h-auto">
+            <path d="M 80 95 L 190 95 A 110 110 0 0 0 114 10 Z" fill="#047857" fill-opacity="0.4" stroke="#10b981" stroke-width="2.5"/>
+            <line x1="80" y1="95" x2="190" y2="95" stroke="#f43f5e" stroke-width="3"/>
+            <line x1="80" y1="95" x2="114" y2="10" stroke="#f43f5e" stroke-width="3"/>
+            <text x="135" y="112" fill="#fda4af" font-size="11" font-weight="bold" text-anchor="middle">半徑 r = 10cm (必加!)</text>
+            <text x="58" y="50" fill="#fda4af" font-size="11" font-weight="bold" text-anchor="middle">r=10cm</text>
+            <text x="175" y="45" fill="#6ee7b7" font-size="11" font-weight="bold">弧長 = 12.56cm</text>
+            <text x="112" y="82" fill="#fde68a" font-size="11" font-weight="bold">72°(1/5圓)</text>
+
+            <rect x="255" y="16" width="250" height="88" rx="8" fill="#1e293b" stroke="#475569"/>
+            <text x="380" y="38" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">🍕 披薩周長避坑公式：</text>
+            <text x="380" y="62" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">扇形周長 = 弧長 + 半徑 × 2</text>
+            <text x="380" y="86" fill="#fda4af" font-size="11" text-anchor="middle">12.56 + 10 + 10 = 32.56 公分</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤一（算扇形周長忘記加 2 條半徑）：只算弧長 $10 \\times 2 \\times 3.14 \\times \\frac{1}{5} = 12.56$ 公分",
+            whyWrong: "$12.56$ 公分只是披薩外圍彎彎的「餅皮弧長」！如果用繩子圍這個扇形一圈，除了彎彎的弧長，還要走過兩條直直的半徑（$10 + 10 = 20$ 公分）才算圍一圈！",
+            rightFix: "⭕ **正確避坑**：一看到「扇形周長」四個字，馬上先在考卷上寫下 **`弧長 + 2條半徑`**，算出 $12.56 + 10 \\times 2 = 32.56$ 公分！"
+          },
+          {
+            wrongTitle: "❌ 常見錯誤二（面積跟周長公式背混）：算圓周長時忘了乘以 2（拿半徑 × 3.14）",
+            whyWrong: "圓周長是「**直徑** $\\times 3.14$」（也就是 $\\text{半徑} \\times 2 \\times 3.14$）；圓面積才是「$\\text{半徑} \\times \\text{半徑} \\times 3.14$」！",
+            rightFix: "⭕ **正確避坑**：面積有「平方」所以是兩個半徑相乘（$r \\times r \\times 3.14$）；周長是一條線，要用直徑乘以 $3.14$。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜算幾分之幾圓】圓心角 72° 是整個圓 360° 的幾分之幾（約分到最簡分數）？", why: "先約分 72/360 = 1/5，後面的計算數字會變得超級好算！" },
+          { step: 2, title: "【Step 2｜算扇形面積】代入 半徑 × 半徑 × 3.14 × 1/5", why: "10 × 10 × 3.14 × 1/5 = 314 ÷ 5 = 62.8 平方公分。" },
+          { step: 3, title: "【Step 3｜算扇形周長（小心陷阱！）】先算弧長（直徑 × 3.14 × 1/5），最後別忘了加上什麼？", why: "弧長 12.56 公分還要加上 2 條半徑（20 公分），才是完整的扇形周長！" }
+        ],
+        fullSolution: `### 🌱 國小高年級「扇形面積與周長」標準詳解
+#### 步驟一：先將圓心角約分為最簡分數（幾分之幾圓）
+$$\\frac{72^\\circ}{360^\\circ} = \\frac{1}{5}\\text{（圓）}$$
+#### 步驟二：計算扇形面積（$\\text{半徑} \\times \\text{半徑} \\times 3.14 \\times \\frac{1}{5}$）
+$$10 \\times 10 \\times 3.14 \\times \\frac{1}{5} = 314 \\times \\frac{1}{5} = 62.8\\text{（平方公分）}$$
+#### 步驟三：計算扇形周長（$\\text{弧長} + \\text{半徑} \\times 2$）
+$$\\text{弧長} = (10 \\times 2) \\times 3.14 \\times \\frac{1}{5} = 12.56\\text{（公分）}$$
+$$\\text{扇形周長} = 12.56 + 10 \\times 2 = 32.56\\text{（公分）}$$
+
+**最終答案**：(1) 面積 $\\boxed{62.8\\text{ 平方公分}}$；(2) 周長 $\\boxed{32.56\\text{ 公分}}$`,
+        firstQuestion: "我們先看第一歩：整個圓的一圈是 $360^\\circ$，這塊扇形的圓心角是 $72^\\circ$。把 $\\frac{72}{360}$ 約分到最簡分數，它是幾分之幾個圓呢？",
+        variation: {
+          prompt: "【🎯 易錯避坑變題挑戰】一個**直徑 $20$ 公分**的半圓形量角器，請問它的**周長**大約是多少公分？（注意兩個陷阱：① 題目給的是直徑還是半徑？② 半圓周長除了彎弧還要加哪一條邊？）",
+          ans: "半圓弧長 $= 20 \\times 3.14 \\times \\frac{1}{2} = 31.4$ 公分，還要加上底下直徑 $20$ 公分，周長 $= 31.4 + 20 = \\boxed{51.4\\text{ 公分}}$！"
+        }
+      },
+
+      speed_average: {
+        id: "speed_average",
+        unit: "🏃 速率問題：追趕問題 ＆ 往返平均速率陷阱",
+        trapRating: "🚨 易錯指數：★★★★★（最常把追趕算成速率相加，或把往返平均速率算成兩速率相加除以 2）",
+        keySignal: "🔍 關鍵字：「妹妹先走 5 分鐘」、「同地同向追趕」、「幾分鐘追上」",
+        problem: "妹妹每分鐘走 $60$ 公尺，先出發 $5$ 分鐘後，哥哥以每分鐘 $85$ 公尺的速率從同地同向追趕，請問哥哥出發幾分鐘後可以追上妹妹？",
+        coreConcept: `
+          <div>1. **哥哥在追什麼？**妹妹先走了 $5$ 分鐘，已經拉開了 $60 \\times 5 = 300$ 公尺的領先距離！</div>
+          <div>2. **同向追趕看「每分鐘縮短幾公尺（速率差）」**：哥哥每分鐘走 $85$ 公尺，但妹妹同時也往前走 $60$ 公尺，所以每過 $1$ 分鐘，哥哥只追回 $85 - 60 = 25$ 公尺！</div>
+        `,
+        diagramType: "同向追趕距離差與速率差圖解",
+        svgDiagram: `
+          <svg viewBox="0 0 520 115" class="w-full max-w-[500px] h-auto">
+            <line x1="20" y1="45" x2="500" y2="45" stroke="#475569" stroke-width="2" stroke-dasharray="4 4"/>
+            <rect x="20" y="25" width="170" height="30" rx="6" fill="#d97706" fill-opacity="0.4" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="105" y="44" fill="#fde68a" font-size="11" font-weight="bold" text-anchor="middle">妹妹先走5分鐘 = 300公尺</text>
+            <rect x="195" y="25" width="295" height="30" rx="6" fill="#047857" fill-opacity="0.45" stroke="#10b981" stroke-width="2"/>
+            <text x="342" y="44" fill="#6ee7b7" font-size="11" font-weight="bold" text-anchor="middle">每1分鐘哥哥多追 85 - 60 = 25公尺</text>
+            <text x="260" y="88" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">⚡ 追上時間 = 落後總距離 300m ÷ 每分鐘追近的 25m = 12 分鐘！</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤一（直接拿落後距離除以哥哥速率）：算成 $300 \\div 85$",
+            whyWrong: "妹妹並不是站在原地等哥哥喔！哥哥往前跑的時候，妹妹也繼續以每分鐘 $60$ 公尺往前走，所以每分鐘只能縮短 $85 - 60 = 25$ 公尺！",
+            rightFix: "⭕ **正確避坑**：**同向追趕用「速率差」**（$85 - 60 = 25$）；**相向迎面走來才用「速率和」**（$85 + 60$）。"
+          },
+          {
+            wrongTitle: "❌ 延伸必考陷阱（往返平均速率）：上山時速 3 公里、下山時速 6 公里，誤以為平均時速是 $(3+6)\\div 2 = 4.5$",
+            whyWrong: "因為上山慢，花的**時間比較久**（占了 2/3 的時間），下山快花的時間短，不能直接相加除以 2！",
+            rightFix: "⭕ **正確避坑**：平均速率唯一公式是**「總距離 $\\div$ 總時間」**（設山路 6 公里，上山 2 小時＋下山 1 小時＝3 小時，往返 $12 \\div 3 = 4$ 公里/時）。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜算領先距離】妹妹每分鐘走 60 公尺，先走 5 分鐘，哥哥出發時妹妹已經在前面幾公尺？", why: "先算出哥哥需要追趕的總距離差。" },
+          { step: 2, title: "【Step 2｜算每分鐘追近多少】哥哥每分鐘走 85 公尺、妹妹走 60 公尺，每 1 分鐘兩人距離縮短幾公尺？", why: "同向追趕要算兩人的速率差 (85 - 60)。" },
+          { step: 3, title: "【Step 3｜相除求追上時間並驗算】總距離差 300 公尺除以每分鐘追 25 公尺，要幾分鐘追上？", why: "驗算：12 分鐘哥哥走了 85×12=1020m，妹妹走 17 分鐘也是 60×17=1020m！" }
+        ],
+        fullSolution: `### 🌱 國小高年級「同向追趕速率問題」標準詳解
+#### 步驟一：計算妹妹先出發 $5$ 分鐘拉開的領先距離
+$$60 \\times 5 = 300\\text{（公尺）}$$
+#### 步驟二：計算哥哥每分鐘比妹妹多走幾公尺（速率差）
+$$85 - 60 = 25\\text{（公尺／分）}$$
+#### 步驟三：用領先距離除以速率差求出追上時間
+$$300 \\div 25 = 12\\text{（分鐘）}$$
+*(🔍 逆運算驗算：哥哥走 $12$ 分鐘共走 $85 \\times 12 = 1020$ 公尺；妹妹總共走 $5 + 12 = 17$ 分鐘，共走 $60 \\times 17 = 1020$ 公尺，兩人剛好在 $1020$ 公尺處追上 ✔)*
+
+**最終答案**：$\\boxed{12\\text{ 分鐘}}$`,
+        firstQuestion: "我們先想畫面：妹妹每分鐘走 $60$ 公尺，她先偷跑了 $5$ 分鐘後哥哥才從起點出發。請問當哥哥準備出發的那一刻，妹妹已經領先在前面多少公尺了呢？",
+        variation: {
+          prompt: "【🎯 易錯避坑變題挑戰｜往返平均速率】小華登山，上山沿著長 $6$ 公里的步道走，時速 $2$ 公里；下山走原路，時速 $6$ 公里。請問小華**上下山往返一趟的平均時速**是多少公里？（千萬不能寫 $(2+6)\\div 2 = 4$ 喔！）",
+          ans: "上山時間 $= 6 \\div 2 = 3$ 小時，下山時間 $= 6 \\div 6 = 1$ 小時；往返**總距離** $= 6 + 6 = 12$ 公里，**總時間** $= 3 + 1 = 4$ 小時，平均時速 $= 12 \\div 4 = \\boxed{3\\text{ 公里／時}}$！"
+        }
+      },
+
+      discount_markup: {
+        id: "discount_markup",
+        unit: "🏷️ 百分率：成本加成為定價 ➔ 再打折出售",
+        trapRating: "🚨 易錯指數：★★★★☆（最常以為「加三成五再打八折」等於 $1 + 35\\% - 20\\% = +15\\%$！）",
+        keySignal: "🔍 關鍵字：「成本 1200 元」、「加三成五為定價」、「依定價打八折」、「賺或賠多少元」",
+        problem: "一件外套成本 $1200$ 元，老闆加三成五作為定價，週年慶時再**依定價打八折**出售，請問賣出一件外套賺或賠多少元？",
+        coreConcept: `
+          <div>1. **兩次變動的「基準量」不一樣！**第一次「加三成五（$+35\\%$）」是以**成本 $1200$ 元**當基準，定價變成 $1200 \\times 1.35 = 1620$ 元。</div>
+          <div>2. **第二次「打八折（$\\times 80\\%$）」是以變貴後的「定價 $1620$ 元」當基準！**所以售價是 $1620 \\times 0.8 = 1296$ 元，比成本多賺了 $96$ 元！</div>
+        `,
+        diagramType: "成本 ➔ 定價 ➔ 打折售價三階段階梯圖",
+        svgDiagram: `
+          <svg viewBox="0 0 520 115" class="w-full max-w-[500px] h-auto">
+            <rect x="14" y="38" width="130" height="44" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+            <text x="79" y="57" fill="#94a3b8" font-size="11" font-weight="bold" text-anchor="middle">① 成本 (基準1)</text>
+            <text x="79" y="74" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">1200 元</text>
+
+            <text x="174" y="48" fill="#fbbf24" font-size="10" font-weight="bold" text-anchor="middle">× (1+35%)</text>
+            <text x="174" y="65" fill="#fbbf24" font-size="14" text-anchor="middle">➔</text>
+
+            <rect x="204" y="24" width="130" height="58" rx="8" fill="#312e81" fill-opacity="0.6" stroke="#818cf8" stroke-width="1.5"/>
+            <text x="269" y="48" fill="#c7d2fe" font-size="11" font-weight="bold" text-anchor="middle">② 定價 (新基準)</text>
+            <text x="269" y="68" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">1620 元</text>
+
+            <text x="362" y="48" fill="#34d399" font-size="10" font-weight="bold" text-anchor="middle">× 0.8 (八折)</text>
+            <text x="362" y="65" fill="#34d399" font-size="14" text-anchor="middle">➔</text>
+
+            <rect x="390" y="30" width="120" height="52" rx="8" fill="#064e3b" fill-opacity="0.6" stroke="#10b981" stroke-width="2"/>
+            <text x="450" y="50" fill="#6ee7b7" font-size="11" font-weight="bold" text-anchor="middle">③ 實際售價</text>
+            <text x="450" y="70" fill="#ecfdf5" font-size="12" font-weight="bold" text-anchor="middle">1296元 (賺96元)</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤一（把百分率直接加減）：以為「加 35% 再減 20%」就是多賺 15%，算成 $1200 \\times 15\\% = 180$ 元",
+            whyWrong: "打八折扣掉的 $20\\%$，是扣掉**定價 $1620$ 元**的 $20\\%$（扣了 $324$ 元），不是扣成本 $1200$ 元的 $20\\%$！兩個百分率的基準量不同，不能直接相加減！",
+            rightFix: "⭕ **正確避坑**：一步一步乘！先算定價 $1200 \\times 1.35 = 1620$ 元，再算售價 $1620 \\times 0.8 = 1296$ 元，最後減成本 $1296 - 1200 = 96$ 元。"
+          },
+          {
+            wrongTitle: "❌ 常見錯誤二（「打八折」與「減二成」搞混）：把打八折算成乘以 $0.2$",
+            whyWrong: "中文說「打八折」意思是**用定價的 $80\\%$（$0.8$ 倍）賣出**；如果是乘以 $0.2$，那是便宜掉的折扣金額，不是售價！",
+            rightFix: "⭕ **正確避坑**：打八折 $= \\times 0.8$；打七五折 $= \\times 0.75$；加三成五 $= \\times (1 + 0.35) = \\times 1.35$。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜算定價】成本 1200 元『加三成五（+35%）』，定價是多少元？", why: "加三成五代表定價是成本的 1 + 0.35 = 1.35 倍。" },
+          { step: 2, title: "【Step 2｜算打折後售價】把定價 1620 元『打八折（× 0.8）』，實際賣多少元？", why: "打折是以『定價』為基準乘以 0.8。" },
+          { step: 3, title: "【Step 3｜比對售價與成本】售價 1296 元跟成本 1200 元比，是賺還是賠多少元？", why: "售價大於成本就是賺，用 1296 - 1200 算出利潤！" }
+        ],
+        fullSolution: `### 🌱 國小高年級「成本、定價與打折」標準詳解
+#### 步驟一：由成本加三成五（$35\\%$）計算定價
+$$1200 \\times (1 + 35\\%) = 1200 \\times 1.35 = 1620\\text{（元）}$$
+#### 步驟二：依定價打八折（$\\times 80\\%$）計算實際售價
+$$1620 \\times 0.8 = 1296\\text{（元）}$$
+#### 步驟三：比較售價與成本判斷賺賠
+因售價 $1296\\text{ 元} > \\text{成本 } 1200\\text{ 元}$：
+$$1296 - 1200 = 96\\text{（元）}$$
+
+**最終答案**：$\\boxed{\\text{賺 } 96\\text{ 元}}$`,
+        firstQuestion: "我們先看第一步：外套成本是 $1200$ 元，老闆『加三成五』作為定價。請問『三成五』是百分之多少（小數是多少）？把 $1200 \\times (1 + 0.35)$ 算出來，定價是多少元呢？",
+        variation: {
+          prompt: "【🎯 易錯避坑變題挑戰】一雙球鞋成本 $1000$ 元，老闆先**加兩成五（$+25\\%$）**作為定價，特價時再依定價**打八折**出售，請問老闆賣這雙球鞋是賺、賠、還是不賺不賠？",
+          ans: "定價 $= 1000 \\times 1.25 = 1250$ 元，打八折售價 $= 1250 \\times 0.8 = 1000$ 元，跟成本一樣，所以是 $\\boxed{\\text{不賺不賠（0 元）}}$！（看吧！$+25\\%$ 再打八折並不是賺 $5\\%$ 喔！）"
+        }
+      },
+
+      chicken_rabbit_coin: {
+        id: "chicken_rabbit_coin",
+        unit: "🪙 雞兔同籠與硬幣替換問題（不用 x,y）",
+        trapRating: "🚨 易錯指數：★★★★☆（假設全部是 10 元硬幣時，最常把除出來的數量誤當成 10 元枚數！）",
+        keySignal: "🔍 關鍵字：「10 元和 50 元共 20 枚」、「合起來 680 元」、「求 50 元有幾枚」",
+        problem: "撲滿裡有 $10$ 元和 $50$ 元硬幣共 $20$ 枚，合起來共有 $680$ 元，請問 $50$ 元硬幣和 $10$ 元硬幣各有幾枚？",
+        coreConcept: `
+          <div>1. **為什麼不用設 $x, y$ 就能秒解？**用國小最厲害的**「全部假設法 ＋ 補差額換人」**！</div>
+          <div>2. **關鍵避坑口訣：「假設全部是 A，換進來算出來的就是 B！」**如果我們先假設 $20$ 枚全部都是 $10$ 元（只有 $200$ 元），比實際少了 $480$ 元；每把 $1$ 枚 $10$ 元換成 **1 枚 50 元**可以補回 $40$ 元，所以 $480 \\div 40 = 12$ 枚算出來的正是**換進去的 50 元硬幣**！</div>
+        `,
+        diagramType: "硬幣假設替換法視覺模型",
+        svgDiagram: `
+          <svg viewBox="0 0 520 115" class="w-full max-w-[500px] h-auto">
+            <rect x="12" y="18" width="225" height="80" rx="8" fill="#1e293b" stroke="#64748b"/>
+            <text x="124" y="40" fill="#fde68a" font-size="11" font-weight="bold" text-anchor="middle">Step 1：假設 20 枚全都是 10 元</text>
+            <text x="124" y="62" fill="#e2e8f0" font-size="12" text-anchor="middle">10元 × 20枚 = 200 元</text>
+            <text x="124" y="82" fill="#fda4af" font-size="11" font-weight="bold" text-anchor="middle">比 680 元少了 480 元！</text>
+
+            <text x="258" y="60" fill="#38bdf8" font-size="16" font-weight="bold" text-anchor="middle">➔</text>
+
+            <rect x="280" y="18" width="228" height="80" rx="8" fill="#064e3b" fill-opacity="0.55" stroke="#10b981" stroke-width="2"/>
+            <text x="394" y="40" fill="#6ee7b7" font-size="11" font-weight="bold" text-anchor="middle">Step 2：拿 10 元換成 50 元補差額</text>
+            <text x="394" y="62" fill="#ffffff" font-size="11" text-anchor="middle">每換 1 枚多 40 元 ➔ 480 ÷ 40 = 12</text>
+            <text x="394" y="82" fill="#fde68a" font-size="11" font-weight="bold" text-anchor="middle">✔ 換進來的 50 元有 12 枚！</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤一（主角搞反）：假設全部是 10 元，算出 $480 \\div 40 = 12$ 後，回答「10 元有 12 枚」",
+            whyWrong: "一開始桌上全部擺 $10$ 元，為了補足短少的 $480$ 元，我們是一枚一枚把**「$50$ 元硬幣」換進來**！所以換了 $12$ 次，代表換進來的是 $12$ 枚 **$50$ 元**！",
+            rightFix: "⭕ **正確避坑**：記住口訣**「假設全是小弟（10元），算出來的就是大哥（50元）」**！而且最後一定要做 3 秒驗算：$50 \\times 12 + 10 \\times 8 = 680$ 元！"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜先假設全部是 10 元】如果 20 枚硬幣全部都是 10 元，總共只有多少元？比 680 元少了多少元？", why: "算出因為把 50 元當成 10 元而少算的總金額差量。" },
+          { step: 2, title: "【Step 2｜算換 1 枚補多少】把 1 枚 10 元換成 1 枚 50 元，總金額會增加多少元？", why: "50 - 10 = 40 元，每換 1 枚就能補回 40 元。" },
+          { step: 3, title: "【Step 3｜相除求 50 元枚數並驗算】總共少 480 元，除以 40 元，要換幾枚 50 元進來？", why: "算出 50 元有 12 枚，再用 20 - 12 = 8 枚算出 10 元枚數！" }
+        ],
+        fullSolution: `### 🌱 國小高年級「假設替換法（雞兔同籠）」標準詳解
+#### 步驟一：假設 $20$ 枚全部都是 $10$ 元硬幣，計算少算的差額
+$$10 \\times 20 = 200\\text{（元）}，\\quad 680 - 200 = 480\\text{（元）}$$
+#### 步驟二：每將 $1$ 枚 $10$ 元換成 $50$ 元可增加 $40$ 元，求出換進來的 $50$ 元枚數
+$$480 \\div (50 - 10) = 480 \\div 40 = 12\\text{（枚 } 50\\text{ 元）}$$
+$$20 - 12 = 8\\text{（枚 } 10\\text{ 元）}$$
+*(🔍 逆運算驗算：$50 \\times 12 + 10 \\times 8 = 600 + 80 = 680$ 元 ✔)*
+
+**最終答案**：$50$ 元有 $\\boxed{12\\text{ 枚}}$，$10$ 元有 $\\boxed{8\\text{ 枚}}$`,
+        firstQuestion: "我們用超好懂的『換硬幣法』來想！如果桌上 $20$ 枚硬幣一開始**全部都擺 $10$ 元**，數一數只有多少元？跟題目說的 $680$ 元還差了多少元呢？",
+        variation: {
+          prompt: "【🎯 易錯避坑變題挑戰】全班 $30$ 位同學去划船，總共租了 $8$ 艘船剛好坐滿。已知大船每艘坐 $5$ 人，小船每艘坐 $3$ 人，請問大船和小船各租了幾艘？",
+          ans: "假設 8 艘全租小船可坐 $3 \\times 8 = 24$ 人，還差 $30 - 24 = 6$ 人；每把 1 艘小船換成大船可多坐 $5 - 3 = 2$ 人，故大船有 $6 \\div 2 = \\boxed{3\\text{ 艘}}$，小船有 $8 - 3 = \\boxed{5\\text{ 艘}}$！"
+        }
+      }
+    };
+
+    // ================= 國小六年級 14 題常考易錯全卷資料庫 =================
+    const GRADE6_14_EXAM = [
+      ELEMENTARY_TOPICS.base_compare,
+      ELEMENTARY_TOPICS.fraction_unit,
+      ELEMENTARY_TOPICS.tree_interval,
+      ELEMENTARY_TOPICS.scale_area,
+      ELEMENTARY_TOPICS.sector_perimeter,
+      ELEMENTARY_TOPICS.speed_average,
+      ELEMENTARY_TOPICS.discount_markup,
+      ELEMENTARY_TOPICS.chicken_rabbit_coin,
+      {
+        id: "q9_cylinder",
+        unit: "🥛 柱體體積與容積水位逆推",
+        trapRating: "🚨 易錯指數：★★★★☆（最常把「內直徑 20 公分」直接當半徑代 $20 \\times 20 \\times 3.14$！）",
+        keySignal: "🔍 關鍵字：「內直徑 20 公分（要先除以2！）」、「1570 毫公升（=1570立方公分）」",
+        problem: "底面**內直徑 $20$ 公分**的圓柱形玻璃杯，倒入 $1570$ 毫公升的水後，水面高度是多少公分？（圓周率以 $3.14$ 計算）",
+        coreConcept: `<div>1. **看到「直徑」先拿紅筆除以 2！**內直徑 $20$ 公分 $\\implies$ 半徑 $r = 10$ 公分，底面積 $= 10 \\times 10 \\times 3.14 = 314$ 平方公分。</div><div>2. **容積單位對齊**：$1\\text{ 毫公升 (mL)} = 1\\text{ 立方公分 (cm}^3\\text{)}$，水高 $=$ 水的體積 $\\div$ 容器底面積！</div>`,
+        diagramType: "圓柱容器底面積與水位高度關係圖",
+        svgDiagram: `<svg viewBox="0 0 520 100" class="w-full max-w-[480px] h-auto"><rect x="30" y="15" width="460" height="70" rx="8" fill="#0f172a" stroke="#38bdf8"/><text x="260" y="42" fill="#fde68a" font-size="12" font-weight="bold" text-anchor="middle">⚠️ 第一步先抓陷阱：直徑 20cm ➔ 半徑 r = 20 ÷ 2 = 10cm！</text><text x="260" y="68" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">底面積 = 10×10×3.14 = 314 cm² ➔ 水高 = 1570 ÷ 314 = 5 公分</text></svg>`,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤（直徑當半徑）：直接算底面積 $20 \\times 20 \\times 3.14 = 1256$，算出水高 $1.25$ 公分",
+            whyWrong: "題目給的是「內直徑 20 公分」，圓面積公式用的是「半徑 $\\times$ 半徑」，沒除以 2 面積會暴增成 4 倍！",
+            rightFix: "⭕ **正確避坑**：讀題看到「直徑」，第一行算式永遠先寫 $20 \\div 2 = 10$（半徑）！"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜直徑換半徑】內直徑 20 公分，半徑是多少公分？底面積是多少平方公分？", why: "避開『直徑當半徑』的頭號陷阱。" },
+          { step: 2, title: "【Step 2｜毫公升換立方公分】1570 毫公升的水，體積是幾立方公分？", why: "1 mL = 1 cm³，所以體積就是 1570 立方公分。" },
+          { step: 3, title: "【Step 3｜體積除以底面積求水高】用 1570 ÷ 314 算出水面高度", why: "柱體體積 = 底面積 × 高，逆推得 高 = 體積 ÷ 底面積 = 5 公分。" }
+        ],
+        fullSolution: `### 🌱 國小高年級「圓柱容積與水位」標準詳解\n#### 步驟一：先將內直徑除以 2 求半徑與底面積\n$$r = 20 \\div 2 = 10\\text{（公分）}，\\quad \\text{底面積} = 10 \\times 10 \\times 3.14 = 314\\text{（平方公分）}$$\n#### 步驟二：體積除以底面積求水面高度\n$$1570 \\div 314 = 5\\text{（公分）}$$\n\n**最終答案**：$\\boxed{5\\text{ 公分}}$`,
+        firstQuestion: "這題藏了一個全班最愛踩的陷阱！題目說玻璃杯的底面**『內直徑是 20 公分』**，請問我們算圓形底面積之前，第一步要先算出**半徑**是多少公分呢？"
+      },
+      {
+        id: "q10_ratio_boy_girl",
+        unit: "⚖️ 比與比值：按比例分配與相差份數",
+        trapRating: "🚨 易錯指數：★★★☆☆（最常拿總人數直接除以 5 或除以 4，忘了先算總份數 $5+4=9$ 份！）",
+        keySignal: "🔍 關鍵字：「男 : 女 = 5 : 4」、「全班共 36 人（對應 5+4=9 份）」",
+        problem: "六年甲班男生人數與女生人數的比是 $5 : 4$，已知全班共有 $36$ 人，請問男生比女生多幾人？",
+        coreConcept: `<div>1. **全班 $36$ 人代表幾份？**男生佔 $5$ 份、女生佔 $4$ 份，全班合起來是 $5 + 4 = 9$ 份！</div><div>2. **先求 1 份有幾人**：$36 \\div 9 = 4$ 人（1 份是 4 人），男生比女生多 $5 - 4 = 1$ 份，就是多 $4$ 人！</div>`,
+        diagramType: "男女份數比對照圖（5份 vs 4份，共9份）",
+        svgDiagram: `<svg viewBox="0 0 520 100" class="w-full max-w-[480px] h-auto"><rect x="20" y="20" width="260" height="32" rx="6" fill="#2563eb" fill-opacity="0.45" stroke="#60a5fa"/><text x="150" y="41" fill="#bfdbfe" font-size="12" font-weight="bold" text-anchor="middle">男生 5 份 (5 × 4 = 20人)</text><rect x="285" y="20" width="210" height="32" rx="6" fill="#db2777" fill-opacity="0.45" stroke="#f472b6"/><text x="390" y="41" fill="#fbcfe8" font-size="12" font-weight="bold" text-anchor="middle">女生 4 份 (4 × 4 = 16人)</text><text x="260" y="82" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">全班 5+4=9 份共 36 人 ➔ 1 份 = 4 人 ➔ 男生比女生多 1 份 = 4 人！</text></svg>`,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤（忘記把份數相加）：直接拿 $36 \\div 5$ 或 $36 \\times \\frac{5}{4}$",
+            whyWrong: "$36$ 人是「全班總人數」，對應的是男生加女生的「總份數 $5 + 4 = 9$ 份」，分母必須是 $9$！",
+            rightFix: "⭕ **正確避坑**：看到總和給定，先算總份數 $5 + 4 = 9$ 份，$1$ 份 $= 36 \\div 9 = 4$ 人。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜算總份數與 1 份幾人】男生 5 份、女生 4 份，全班共幾份？1 份是幾人？", why: "36 ÷ (5 + 4) = 4 人。" },
+          { step: 2, title: "【Step 2｜算相差人數】男生 5 份比女生 4 份多幾份？共多幾人？", why: "(5 - 4) × 4 = 4 人。" },
+          { step: 3, title: "【Step 3｜驗算總人數】男生 20 人 + 女生 16 人是否等於 36 人？", why: "確認總和與比值完全吻合。" }
+        ],
+        fullSolution: `### 🌱 國小高年級「按比例分配」標準詳解\n$$\\text{總份數} = 5 + 4 = 9\\text{（份）}，\\quad 1\\text{ 份} = 36 \\div 9 = 4\\text{（人）}$$\n$$\\text{男生比女生多} = 4 \\times (5 - 4) = 4\\text{（人）}$$\n\n**最終答案**：$\\boxed{4\\text{ 人}}$`,
+        firstQuestion: "男生佔 $5$ 份、女生佔 $4$ 份，全班合起來總共是幾份？如果全班 $36$ 人平分給這幾份，請問 **$1$ 份代表幾個人**呢？"
+      },
+      {
+        id: "q11_age_sum_multiple",
+        unit: "👨‍👦 和差倍問題：父子年齡倍數基準量",
+        trapRating: "🚨 易錯指數：★★★★☆（最常拿 $50 \\div 4$，忘了爸爸 4 份加上小明自己 1 份總共是 5 份！）",
+        keySignal: "🔍 關鍵字：「爸爸是小明的 4 倍」、「父子合起來 50 歲（4+1=5份）」",
+        problem: "今年爸爸的年齡是小明的 $4$ 倍，已知父子兩人今年年齡合起來是 $50$ 歲，請問爸爸今年幾歲？",
+        coreConcept: `<div>1. **把倍數較小的「小明」當基準量 $1$ 份**：爸爸是小明的 $4$ 倍，代表爸爸是 $4$ 份。</div><div>2. **兩人和 $=$ 基準量 $\\times (1 + \\text{倍數})$**：父子合起來共有 $1 + 4 = 5$ 份，所以先除以 $5$ 算出小明 $10$ 歲，再乘以 $4$ 得爸爸 $40$ 歲！</div>`,
+        diagramType: "和倍問題份數線段圖（1份 + 4份 = 5份）",
+        svgDiagram: `<svg viewBox="0 0 520 100" class="w-full max-w-[480px] h-auto"><rect x="20" y="22" width="85" height="32" rx="6" fill="#0284c7" fill-opacity="0.45" stroke="#38bdf8"/><text x="62" y="42" fill="#bae6fd" font-size="12" font-weight="bold" text-anchor="middle">小明 1 份</text><rect x="115" y="22" width="360" height="32" rx="6" fill="#047857" fill-opacity="0.45" stroke="#10b981"/><text x="295" y="42" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">爸爸是 4 倍 = 4 份 (40歲)</text><text x="260" y="82" fill="#fde68a" font-size="12" font-weight="bold" text-anchor="middle">父子合起來是 1 + 4 = 5 份 = 50 歲 ➔ 小明(1份) = 10 歲，爸爸(4份) = 40 歲！</text></svg>`,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤（漏算基準量自己的 1 份）：直接拿 $50 \\div 4 = 12.5$",
+            whyWrong: "$50$ 歲是「爸爸 $+$ 小明」兩個人的年齡總和，包含了小明的 $1$ 份和爸爸的 $4$ 份，總共是 $5$ 份而不是 $4$ 份！",
+            rightFix: "⭕ **正確避坑**：看到「A 是 B 的 $4$ 倍，兩人共 $50$」，一定要除以 $(4 + 1) = 5$ 份！"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜算總份數】小明算 1 份，爸爸是 4 份，父子兩人合起來共幾份？", why: "1 + 4 = 5 份。" },
+          { step: 2, title: "【Step 2｜先算小明幾歲】5 份合起來是 50 歲，那麼 1 份（小明）是幾歲？", why: "50 ÷ 5 = 10 歲。" },
+          { step: 3, title: "【Step 3｜算出爸爸年齡並驗算】爸爸是小明的 4 倍，爸爸今年幾歲？", why: "10 × 4 = 40 歲（10 + 40 = 50 歲 ✔）。" }
+        ],
+        fullSolution: `### 🌱 國小高年級「和倍問題」標準詳解\n$$\\text{小明（基準量 1 份）} = 50 \\div (4 + 1) = 10\\text{（歲）}$$\n$$\\text{爸爸（4 份）} = 10 \\times 4 = 40\\text{（歲）}$$\n\n**最終答案**：$\\boxed{40\\text{ 歲}}$`,
+        firstQuestion: "如果我們把小明的年齡畫成 $1$ 格線段，爸爸是小明的 $4$ 倍就要畫 $4$ 格線段。請問父子兩個人的年齡加起來，總共是幾格線段呢？"
+      },
+      {
+        id: "q12_mixed_ops",
+        unit: "🧮 分數與小數四則混合運算",
+        trapRating: "🚨 易錯指數：★★★★☆（最常違反「先乘除後加減」，或除以小數時忘了換成分數倒數相乘）",
+        keySignal: "🔍 關鍵字：「先算乘除、後算加減」、「帶分數先化假分數、小數化分數約分最快」",
+        problem: "計算 $2.5 \\times \\frac{4}{5} + 1\\frac{1}{2} \\div 0.75$ 的值是多少？",
+        coreConcept: `<div>1. **先用加號「$+$」把算式切成左右兩個包裹**：左邊算 $2.5 \\times \\frac{4}{5}$，右邊算 $1\\frac{1}{2} \\div 0.75$，最後才相加！</div><div>2. **熟記常用小數換分數**：$2.5 = \\frac{5}{2}$、$1\\frac{1}{2} = \\frac{3}{2}$、$0.75 = \\frac{3}{4}$，換成分數後交叉約分 3 秒就能算出整數！</div>`,
+        diagramType: "四則混合「先乘除後加減」分塊拆解圖",
+        svgDiagram: `<svg viewBox="0 0 520 100" class="w-full max-w-[480px] h-auto"><rect x="20" y="20" width="210" height="40" rx="8" fill="#1e3a8a" fill-opacity="0.5" stroke="#60a5fa"/><text x="125" y="45" fill="#bfdbfe" font-size="12" font-weight="bold" text-anchor="middle">左包裹：5/2 × 4/5 = 2</text><text x="260" y="46" fill="#fde68a" font-size="18" font-weight="bold" text-anchor="middle">+</text><rect x="290" y="20" width="210" height="40" rx="8" fill="#064e3b" fill-opacity="0.5" stroke="#10b981"/><text x="395" y="45" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">右包裹：3/2 ÷ 3/4 = 2</text><text x="260" y="85" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">最後相加：2 + 2 = 4</text></svg>`,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤（由左往右硬算，忘了先乘除後加減）：算完 $2.5 \\times \\frac{4}{5} = 2$ 後，直接先加 $1\\frac{1}{2}$ 變 $3.5$ 再除以 $0.75$",
+            whyWrong: "四則運算鐵律是「先乘除、後加減」！加號右邊的 $1\\frac{1}{2} \\div 0.75$ 必須先除完，才能跟左邊相加！",
+            rightFix: "⭕ **正確避坑**：動筆前先拿鉛筆把「乘號、除號」連在一起的數字括號起來，左邊得 $2$、右邊得 $2$，最後 $2 + 2 = 4$。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜算左邊乘法包裹】把 2.5 換成 5/2，乘以 4/5 約分後是多少？", why: "5/2 × 4/5 = 2。" },
+          { step: 2, title: "【Step 2｜算右邊除法包裹】把 1又1/2 換成 3/2，0.75 換成 3/4，相除等於多少？", why: "3/2 ÷ 3/4 = 3/2 × 4/3 = 2。" },
+          { step: 3, title: "【Step 3｜最後相加】左邊結果加上右邊結果是多少？", why: "2 + 2 = 4。" }
+        ],
+        fullSolution: `### 🌱 國小高年級「分數小數四則混合」標準詳解\n$$\\text{左項} = 2.5 \\times \\frac{4}{5} = \\frac{5}{2} \\times \\frac{4}{5} = 2$$\n$$\\text{右項} = 1\\frac{1}{2} \\div 0.75 = \\frac{3}{2} \\div \\frac{3}{4} = \\frac{3}{2} \\times \\frac{4}{3} = 2$$\n$$\\text{合計} = 2 + 2 = 4$$\n\n**最終答案**：$\\boxed{4}$`,
+        firstQuestion: "做四則混合運算前，我們先把乘除括起來！請問左邊的 $2.5 \\times \\frac{4}{5}$，如果把 $2.5$ 換成分數 $\\frac{5}{2}$ 再跟 $\\frac{4}{5}$ 約分，算出來會是多少呢？"
+      },
+      {
+        id: "q13_average_score",
+        unit: "📊 平均數問題：由平均逆推總分",
+        trapRating: "🚨 易錯指數：★★★★☆（最常直接拿 $(88 + 98) \\div 2 = 93$ 分，忘了 88 分代表前 4 次的份量！）",
+        keySignal: "🔍 關鍵字：「前 4 次平均 88 分（先乘4算總分！）」、「第 5 次 98 分」、「5 次平均」",
+        problem: "小華前 $4$ 次數學平時考的平均分數是 $88$ 分，第 $5$ 次考了 $98$ 分，請問這 $5$ 次平時考的平均分數是多少分？",
+        coreConcept: `<div>1. **看到「平均」先還原「總分」**：前 $4$ 次平均 $88$ 分 $\\implies$ 前 $4$ 次總分 $= 88 \\times 4 = 352$ 分！</div><div>2. **5 次平均 $=$ 5 次總分 $\\div 5$**：$(352 + 98) \\div 5 = 450 \\div 5 = 90$ 分！（或是用移多補少法：第 5 次多考了 $98-88=10$ 分，平分給 $5$ 次每次加 $2$ 分變 $90$ 分！）</div>`,
+        diagramType: "平均數「還原總分 vs 移多補少」雙軌圖解",
+        svgDiagram: `<svg viewBox="0 0 520 100" class="w-full max-w-[480px] h-auto"><rect x="20" y="20" width="280" height="36" rx="6" fill="#1e293b" stroke="#60a5fa"/><text x="160" y="43" fill="#bfdbfe" font-size="12" font-weight="bold" text-anchor="middle">前 4 次總分 = 88 × 4 = 352 分</text><rect x="310" y="20" width="190" height="36" rx="6" fill="#064e3b" fill-opacity="0.55" stroke="#10b981"/><text x="405" y="43" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">第 5 次 = 98 分 (多出10分)</text><text x="260" y="84" fill="#fde68a" font-size="12" font-weight="bold" text-anchor="middle">5 次總分 = 352 + 98 = 450 分 ➔ 5 次平均 = 450 ÷ 5 = 90 分！</text></svg>`,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤（直接把 88 跟 98 相加除以 2）：算成 $(88 + 98) \\div 2 = 93$ 分",
+            whyWrong: "$88$ 分是**前面 $4$ 次考試**的平均（有 4 個 88 分），而 $98$ 分只有 $1$ 次！直接除以 2 就把前面 4 次當成只有 1 次了！",
+            rightFix: "⭕ **正確避坑**：必背公式**「新平均 $=$ 全部總分 $\\div$ 全部次數」**，先算 $88 \\times 4 + 98 = 450$ 分，再除以 $5$ 次得 $90$ 分。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜還原前 4 次總分】前 4 次平均 88 分，前 4 次加起來總共幾分？", why: "88 × 4 = 352 分。" },
+          { step: 2, title: "【Step 2｜加上第 5 次算 5 次總分】352 分加上第 5 次的 98 分共幾分？", why: "352 + 98 = 450 分。" },
+          { step: 3, title: "【Step 3｜除以總次數 5 次】450 分除以 5 次，新的平均是幾分？", why: "450 ÷ 5 = 90 分。" }
+        ],
+        fullSolution: `### 🌱 國小高年級「平均數逆推問題」標準詳解\n$$\\text{前 4 次總分} = 88 \\times 4 = 352\\text{（分）}$$\n$$\\text{5 次總分} = 352 + 98 = 450\\text{（分）}$$\n$$\\text{5 次平均} = 450 \\div 5 = 90\\text{（分）}$$\n\n**最終答案**：$\\boxed{90\\text{ 分}}$`,
+        firstQuestion: "小心千萬不能直接拿 $(88+98)\\div 2$ 喔！因為 $88$ 分是**前 $4$ 次**的平均分數，請問小華前 $4$ 次平時考加起來的**總分**是多少分呢？"
+      },
+      {
+        id: "q14_goat_corner",
+        unit: "🐐 複合圖形面積：正方形牆角拴羊吃草",
+        trapRating: "🚨 易錯指數：★★★★★（最常以為圓心角是正方形內角 $90^\\circ$，其實羊在倉庫『外牆』轉的是 $270^\\circ$！）",
+        keySignal: "🔍 關鍵字：「倉庫外牆一角（360° - 90° = 270° = 3/4圓）」、「繩長 6 公尺」",
+        problem: "在邊長 $10$ 公尺的正方形倉庫**外牆**一角，用長 $6$ 公尺的繩子拴住一隻羊，羊在倉庫外可活動吃草的最大面積是多少平方公尺？（圓周率以 $3.14$ 計算）",
+        coreConcept: `<div>1. **羊在倉庫「外面」還是「裡面」？**倉庫是實心的牆壁，裡面佔了 $90^\\circ$ 不能進去，所以羊在倉庫外面可以繞一圈的 $\\frac{3}{4}$（$360^\\circ - 90^\\circ = 270^\\circ$）！</div><div>2. **檢查繩長有沒有超過牆邊**：繩長 $6\\text{ 公尺} < \\text{牆長 } 10\\text{ 公尺}$，不會折過下一個牆角，所以就是半徑 $6$ 公尺的 $\\frac{3}{4}$ 圓！</div>`,
+        diagramType: "正方形外牆角 270°（3/4 圓）扇形活動範圍圖",
+        svgDiagram: `<svg viewBox="0 0 520 110" class="w-full max-w-[480px] h-auto"><path d="M 120 65 L 175 65 A 55 55 0 1 1 120 10 Z" fill="#047857" fill-opacity="0.45" stroke="#10b981" stroke-width="2"/><rect x="65" y="10" width="55" height="55" fill="#334155" stroke="#94a3b8" stroke-width="2"/><text x="92" y="42" fill="#e2e8f0" font-size="11" font-weight="bold" text-anchor="middle">倉庫90°</text><text x="155" y="96" fill="#6ee7b7" font-size="11" font-weight="bold" text-anchor="middle">外牆可吃草 = 270° (3/4圓)</text><text x="360" y="45" fill="#fde68a" font-size="12" font-weight="bold" text-anchor="middle">🎯 避坑關鍵：倉庫在裡面佔 90°</text><text x="360" y="70" fill="#ffffff" font-size="12" text-anchor="middle">外面草地 = 360° - 90° = 270° (3/4圓)</text></svg>`,
+        errorTraps: [
+          {
+            wrongTitle: "❌ 常見錯誤（把外牆當成內角 $90^\\circ$）：只算 $\\frac{1}{4}$ 個圓（$6 \\times 6 \\times 3.14 \\times \\frac{1}{4} = 28.26$）",
+            whyWrong: "如果羊被關在倉庫「裡面」才是 $\\frac{1}{4}$ 圓！但羊是拴在倉庫「外牆」，除了倉庫擋住的 $90^\\circ$（$\\frac{1}{4}$ 圓）以外，外面的 $270^\\circ$（$\\frac{3}{4}$ 圓）全部都能吃到草！",
+            rightFix: "⭕ **正確避坑**：外牆角吃草角度 $= 360^\\circ - 90^\\circ = 270^\\circ = \\frac{3}{4}$ 個圓，面積 $= 6 \\times 6 \\times 3.14 \\times \\frac{3}{4} = 84.78$ 平方公尺。"
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜判斷吃草扇形角度】正方形倉庫擋住 90°，羊在倉庫『外面』可以轉幾度（幾分之幾圓）？", why: "360° - 90° = 270°，佔整個圓的 270/360 = 3/4 圓。" },
+          { step: 2, title: "【Step 2｜確認繩子半徑】繩長 6 公尺比倉庫邊長 10 公尺短，扇形半徑是多少？", why: "半徑 r = 6 公尺。" },
+          { step: 3, title: "【Step 3｜計算 3/4 圓面積】代入 6 × 6 × 3.14 × 3/4", why: "36 × 3.14 × 0.75 = 27 × 3.14 = 84.78 平方公尺。" }
+        ],
+        fullSolution: `### 🌱 國小高年級「牛羊吃草扇形面積」標準詳解\n#### 步驟一：計算倉庫外牆可活動之圓心角比例\n$$\\frac{360^\\circ - 90^\\circ}{360^\\circ} = \\frac{270^\\circ}{360^\\circ} = \\frac{3}{4}\\text{（圓）}$$\n#### 步驟二：計算半徑 $6$ 公尺之 $\\frac{3}{4}$ 圓面積\n$$6 \\times 6 \\times 3.14 \\times \\frac{3}{4} = 36 \\times 0.75 \\times 3.14 = 27 \\times 3.14 = 84.78\\text{（平方公尺）}$$\n\n**最終答案**：$\\boxed{84.78\\text{ 平方公尺}}$`,
+        firstQuestion: "想像一下：一圈是 $360^\\circ$，正方形倉庫的牆角擋住了裡面的 $90^\\circ$，那麼羊在倉庫**外面**的草地上，總共可以轉動幾度（等於幾分之幾個圓）呢？"
+      }
+    ];
+
+    
+    // ================= 國小一～六年級：各年級最容易錯誤的觀念總表（共 6 個年級、24 個核心易錯盲點） =================
+    let activeMisconceptionGrade = '6年級';
+    let pdfGradeTableMode = 'current';
+
+    const GRADE_BY_GRADE_MISCONCEPTIONS = {
+      '1年級': [
+        {
+          unit: "🔢 序數與基數（第幾個 與 有幾個）",
+          wrongHabit: "❌ 把「排在第 6 個」和「前面有 6 個人」當成一樣，算排隊總人數時重複算自己或漏算自己。",
+          correctGuide: "⭕ 畫圈圈標號碼！「排第 6 個」代表從第 1 數到第 6（包含自己共 6 人）；「前面有 6 人」代表自己排在第 7 個！",
+          avoidTip: "看到「第幾個」先畫圈圈塗顏色，自己那顆圈圈不要加兩次！",
+          sampleQ: "小朋友排隊買冰淇淋，小美排在第 6 個，她後面還有 4 個人，請問排隊買冰淇淋的一共有幾個人？"
+        },
+        {
+          unit: "⚖️ 比多少問題（看到「多」就加、看到「少」就減）",
+          wrongHabit: "❌ 題目說「哥哥有 12 顆糖，哥哥比弟弟多 4 顆」，小朋友看到「多」字就直接算 12 ＋ 4 ＝ 16 顆。",
+          correctGuide: "⭕ 先判斷「誰比較多、誰比較少」！哥哥比弟弟多，代表弟弟比較少，所以弟弟是 12 － 4 ＝ 8 顆！",
+          avoidTip: "先圈出誰是大哥（比較多）、誰是小弟（比較少），不能看到「多」就無腦用加的！",
+          sampleQ: "哥哥有 12 顆糖果，哥哥比弟弟多 4 顆，請問弟弟有幾顆糖果？"
+        },
+        {
+          unit: "🧮 18 以內退位減法（個位倒減陷阱）",
+          wrongHabit: "❌ 計算 14 － 8 時，看到個位 4 不夠減 8，就反過來用 8 － 4 ＝ 4，誤寫成 14。",
+          correctGuide: "⭕ 用「破十法（拆十法）」：把 14 拆成 10 和 4，先拿整捆的 10 － 8 ＝ 2，再加回剩下的 4 得到 2 ＋ 4 ＝ 6！",
+          avoidTip: "個位不夠減，找 10 來幫忙（10 先減，再加尾數）！",
+          sampleQ: "籃子裡有 14 顆蘋果，吃掉了 8 顆後，還剩下幾顆蘋果？"
+        },
+        {
+          unit: "🕒 認識時鐘（幾點半的時針位置）",
+          wrongHabit: "❌ 時鐘指著「7 點半」時，因為時針已經走到 7 和 8 的中間，小朋友常誤看成「8 點半」。",
+          correctGuide: "⭕ 時針走過哪個數字、還沒碰到下一個數字，就是「幾點」！住在 7 和 8 的房間中間，還是屬於 7 點的房間！",
+          avoidTip: "短針（時針）過誰就是幾點，還沒踩到 8 就還是 7 點半！",
+          sampleQ: "時鐘上的長針指著 6，短針指在 7 和 8 的正中間，請問現在是幾點幾分？"
+        }
+      ],
+      '2年級': [
+        {
+          unit: "📝 二位數與三位數直式退位減法（忘記借位減 1）",
+          wrongHabit: "❌ 計算 62 － 27 時，個位借了 10 變成 12 － 7 ＝ 5，但十位忘記已經被借走 1，還是算 6 － 2 ＝ 4（誤得 45）。",
+          correctGuide: "⭕ 借位時一定要在十位數字頭上「劃斜線寫上小數字 5」，提醒自己 6 借走 1 只剩 5，十位是 5 － 2 ＝ 3（正確為 35）！",
+          avoidTip: "借走 1 要戴小帽子（寫上減 1 後的數字），絕不靠腦袋硬記！",
+          sampleQ: "書架上有 62 本故事書，借出 27 本後，書架上還剩下幾本故事書？"
+        },
+        {
+          unit: "📏 公尺與公分單位換算（漏補 0 陷阱）",
+          wrongHabit: "❌ 把「3 公尺 5 公分」換算成公分時，直接把兩個數字拼起來寫成 35 公分。",
+          correctGuide: "⭕ 1 公尺 ＝ 100 公分（是三位數）！所以 3 公尺 ＝ 300 公分，加上 5 公分是 300 ＋ 5 ＝ 305 公分（十位沒數字要補 0）！",
+          avoidTip: "1 公尺是 100 公分，公分類不足十位一定要補 0！",
+          sampleQ: "跳遠比賽中，小明跳了 2 公尺 8 公分，小華跳了 195 公分，請問誰跳得比較遠？相差幾公分？"
+        },
+        {
+          unit: "✖️ 乘法的意義與「倍」的加減混用",
+          wrongHabit: "❌ 「一盒布丁有 4 個，買 5 盒再多送 2 個」，誤把 5 盒跟 2 個先相加，算成 4 × (5 ＋ 2) ＝ 28 個。",
+          correctGuide: "⭕ 單位不同不能亂加！先算 5 盒有幾個（4 × 5 ＝ 20 個），最後再加上單獨送的 2 個（20 ＋ 2 ＝ 22 個）。",
+          avoidTip: "先看清楚是「多 2 盒」還是「多 2 個」！",
+          sampleQ: "一盒銅鑼燒有 6 個，媽媽買了 4 盒，老闆又多送 3 個，請問媽媽一共拿到幾個銅鑼燒？"
+        },
+        {
+          unit: "🍬 平分與分裝（包含除 與 等分除）",
+          wrongHabit: "❌ 「24 顆糖果，每 6 顆裝一袋，可裝幾袋？」跟「平分給 6 人」搞混單位，答題時把「袋」寫成「顆」。",
+          correctGuide: "⭕ 圈出問題最後問的單位！每 6 顆圈成一包，24 裡面有 4 個 6，所以是裝成 4「袋」。",
+          avoidTip: "寫答之前，用手指指著題目最後兩個字對單位！",
+          sampleQ: "烘焙坊烤了 36 塊餅乾，每 4 塊裝成一包，全部裝完可以裝成幾包？"
+        }
+      ],
+      '3年級': [
+        {
+          unit: "🚣 有餘數的除法應用（進一法 與 去尾法）",
+          wrongHabit: "❌ 「38 人去划船，每艘船坐 6 人，最少要租幾艘船？」算出 38 ÷ 6 ＝ 6 … 2（餘 2 人）後，直接寫答：6 艘。",
+          correctGuide: "⭕ 剩下的 2 個人也要上船，不能丟在岸上！所以 6 艘船不夠，必須再加 1 艘，共要租 6 ＋ 1 ＝ 7 艘船！",
+          avoidTip: "租船、裝箱、坐車「餘數要加 1」；買東西、做蝴蝶結不夠做一個「餘數要捨去」！",
+          sampleQ: "三年甲班有 38 位同學去露營，每頂帳篷最多可以睡 6 個人，請問最少要準備幾頂帳篷才夠全班睡？"
+        },
+        {
+          unit: "⏱️ 時間的加減（把 1 小時當 100 分鐘借位）",
+          wrongHabit: "❌ 計算「3 時 15 分 － 1 時 40 分」時，把借來的 1 小時當作 100 分鐘，算成 115 － 40 ＝ 75 分。",
+          correctGuide: "⭕ 時間是「60 進位」！跟小時借 1 小時過來，要加 **60 分鐘**（不是 100 分鐘！），所以是 (60 ＋ 15) － 40 ＝ 35 分鐘！",
+          avoidTip: "時間借 1 小時要寫 ＋60 分，千萬別當 100 減！",
+          sampleQ: "兒童電影從下午 1 時 45 分開始播放，到下午 3 時 20 分結束，請問這部電影一共播放了幾小時幾分鐘？"
+        },
+        {
+          unit: "🔲 周長與面積初探（長方形周長忘記乘以 2）",
+          wrongHabit: "❌ 長方形長 8 公分、寬 5 公分，算周長時只算 8 ＋ 5 ＝ 13 公分，忘了長方形有 2 條長和 2 條寬。",
+          correctGuide: "⭕ 周長是螞蟻沿著邊界走一圈的總長度（4 條邊都要走），必須算 (8 ＋ 5) × 2 ＝ 26 公分！",
+          avoidTip: "長方形周長 ＝（長 ＋ 寬）括號起來乘以 2！",
+          sampleQ: "用一條繩子剛好可以圍成一個長 12 公分、寬 8 公分的長方形，請問這條繩子長幾公分？"
+        },
+        {
+          unit: "🍰 分數初步（誤以為分母越大分數越大）",
+          wrongHabit: "❌ 比較 $\\frac{1}{4}$ 個披薩和 $\\frac{1}{8}$ 個披薩時，因為 8 ＞ 4，就誤以為 $\\frac{1}{8}$ ＞ $\\frac{1}{4}$。",
+          correctGuide: "⭕ 同樣一個披薩，平分給越多人（分母越大），每個人分到的一塊就**越小**！所以 $\\frac{1}{4}$ ＞ $\\frac{1}{8}$。",
+          avoidTip: "分子一樣時，分的人越多（分母越大），拿到的一塊越小！",
+          sampleQ: "同樣大小的兩個蛋糕，哥哥吃了 1/4 個，弟弟吃了 1/6 個，請問誰吃的蛋糕比較多？"
+        }
+      ],
+      '4年級': [
+        {
+          unit: "🧮 整數四則混合運算（違反先乘除後加減）",
+          wrongHabit: "❌ 計算 100 － 20 × 4 時，由左往右先算 100 － 20 ＝ 80，再算 80 × 4 ＝ 320（大錯特錯！）。",
+          correctGuide: "⭕ 四則運算鐵律：**有括號先算括號，沒括號一定要「先乘除、後加減」**！必須先算 20 × 4 ＝ 80，再算 100 － 80 ＝ 20。",
+          avoidTip: "動筆前先幫「乘號、除號」畫底線，底線沒算完絕對不能碰加減！",
+          sampleQ: "小明帶了 200 元去文具店，買了 6 枝每枝 25 元的原子筆，請問小明還剩下多少元？"
+        },
+        {
+          unit: "📐 量角器與角度（看錯內外圈刻度）",
+          wrongHabit: "❌ 角的一邊對齊右邊 0°，卻讀成外圈的 120°（明明是尖尖的銳角卻寫成 120°）。",
+          correctGuide: "⭕ 量角度前先判斷它是「比 90° 小的銳角」還是「比 90° 大的鈍角」！再從對齊 0° 的那一圈刻度順著數上去。",
+          avoidTip: "量角先看尖或鈍（小於 90° 或大於 90°），秒抓內外圈看錯！",
+          sampleQ: "一個等腰三角形的頂角是 40 度，請問它的其中一個底角是幾度？（提示：三角形內角和是 180 度）"
+        },
+        {
+          unit: "🧱 複合圖形（L型、凹字型）的周長與面積混淆",
+          wrongHabit: "❌ 把右上角缺一塊的 L 型圖形算周長時，誤以為缺一角周長會變短；或算面積時忘了把重疊處扣除。",
+          correctGuide: "⭕ 用「平移推邊法」：階梯形或 L 型把凹進去的邊往外推，周長剛好等於外圍大長方形的周長！（但若是凹字型還要多加 2 條內側邊）。",
+          avoidTip: "算面積用「切割或補滿相減」；算周長用紅筆標出每一段邊長相加！",
+          sampleQ: "一個邊長 10 公分的大正方形，從右上角剪掉一個邊長 3 公分的小正方形後，剩下圖形的「周長」與「面積」各是多少？"
+        },
+        {
+          unit: "🔢 小數加減直式（對齊最右邊而非對齊小數點）",
+          wrongHabit: "❌ 計算 8.4 ＋ 1.25 時，像整數一樣把 4 跟 5 對齊在最右邊，算成 9.29。",
+          correctGuide: "⭕ 小數加減必須**「小數點對齊小數點」**（十分位對十分位、百分位對百分位），把 8.4 補 0 寫成 8.40 ＋ 1.25 ＝ 9.65！",
+          avoidTip: "小數加減先點小數點，位數不夠先補 0！",
+          sampleQ: "一瓶大瓶牛奶有 1.85 公升，比小瓶牛奶多 0.6 公升，請問大小兩瓶牛奶合起來共有多少公升？"
+        }
+      ],
+      '5年級': [
+        {
+          unit: "🪢 異分母分數加減 ＆「有單位 與 無單位分率」",
+          wrongHabit: "❌ 把「全長的 $\\frac{1}{4}$（無單位比例）」和「$\\frac{1}{4}$ 公尺（實際長度）」直接相加減；或分數加減忘了通分。",
+          correctGuide: "⭕ 看到分數先圈後面**有沒有單位**！沒單位的是「誰的幾分之幾（要用乘的）」；有單位的是實際長度，通分後才能加減！",
+          avoidTip: "沒單位要乘全長，有單位直接加減！",
+          sampleQ: "有一條長 2 公尺的彩帶，姐姐做勞作先用去全長的 1/4，做卡片又用去 1/4 公尺，請問這條彩帶還剩下多少公尺？",
+          presetKey: "fraction_unit"
+        },
+        {
+          unit: "📐 三角形、平行四邊形與梯形面積（忘記除以 2 或找錯高）",
+          wrongHabit: "❌ 算三角形或梯形面積忘記「÷ 2」；或者拿三角形旁邊斜斜的邊長當作「高」來乘。",
+          correctGuide: "⭕ **底和高一定要有「直角符號 ⊥（互相垂直）」**！而且 2 個一樣的三角形或梯形才能拼成 1 個平行四邊形，所以一定要除以 2！",
+          avoidTip: "先找直角垂直線（底和高），三角形、梯形最後必除以 2！",
+          sampleQ: "一個直角三角形的三條邊長分別是 6 公分、8 公分、10 公分，請問這個直角三角形的面積是多少平方公分？斜邊上的高又是多少公分？"
+        },
+        {
+          unit: "🌲 最大公因數 與 最小公倍數 ＆ 植樹間隔",
+          wrongHabit: "❌ 分不清題目要找因數還是倍數；或算好了最大公因數（間距），卻忘記角落、兩端植樹「棵數與間隔數 ＋1 或 －1」的關係。",
+          correctGuide: "⭕ **「大切小、平分裝袋」找最大公因數**；**「小排大、同時再出發」找最小公倍數**！封閉圖形（圓形、三角形周圍）棵數 ＝ 間隔數。",
+          avoidTip: "切東西找公因數，排東西找公倍數；封閉一圈棵數等於間隔數！",
+          sampleQ: "有一塊三角形公園，三邊長分別是 48 公尺、60 公尺、72 公尺。今想在三邊等距離設立路燈（三個頂點都要設），最少共要設幾盞路燈？",
+          presetKey: "tree_interval"
+        },
+        {
+          unit: "➗ 小數除法（商的小數點與餘數的小數點位置搞混）",
+          wrongHabit: "❌ 計算 5.8 ÷ 1.2 ＝ 4 … ？ 時，因為被除數與除數同乘 10 變成 58 ÷ 12 ＝ 4 … 10，就誤答餘數是 10！",
+          correctGuide: "⭕ **商的小數點**對齊「移位後的新小數點」；但**餘數的小數點**必須對齊「原來被除數還沒移位前的小數點」！所以餘數是 1（即 1.0）而不是 10！",
+          avoidTip: "商看新點，餘數看原點（餘數絕不可能比原被除數還大）！",
+          sampleQ: "有一桶 5.8 公升的果汁，每 1.2 公升裝滿一瓶，最多可以裝滿幾瓶？還剩下多少公升的果汁？"
+        }
+      ],
+      '6年級': [
+        {
+          unit: "🎀 基準量與比較量逆推（量率沒對齊、乘除搞反）",
+          wrongHabit: "❌ 「剪去全長的 $\\frac{3}{8}$ 後剩下 45 公分」，誤拿 45 ÷ $\\frac{3}{8}$ 或 45 × (1 － $\\frac{3}{8}$)。",
+          correctGuide: "⭕ 畫線段圖對齊！45 公分是「剩下的量」，必須除以「剩下的分率 (1 － $\\frac{3}{8}$ ＝ $\\frac{5}{8}$ )」，即 45 ÷ $\\frac{5}{8}$ ＝ 72 公分。",
+          avoidTip: "剩下的長度 ÷ 剩下的分率 ＝ 全長（母體未知用除法）！",
+          sampleQ: "一條緞帶剪去全長的 3/8 後，還剩下 45 公分，請問這條緞帶原來長多少公分？",
+          presetKey: "base_compare"
+        },
+        {
+          unit: "🍕 扇形周長與圓面積（忘加 2 條半徑、直徑當半徑）",
+          wrongHabit: "❌ 算扇形周長只算彎彎的弧長，忘了加上兩側的 **2 條半徑**；或看到「直徑 20 公分」沒除以 2 就直接代 20 × 20 × 3.14。",
+          correctGuide: "⭕ 看到「直徑」第一行先寫 ÷ 2 變半徑！看到「扇形周長」先寫公式：弧長 ＋ 半徑 × 2！",
+          avoidTip: "扇形周長 ＝ 弧長 ＋ 2條半徑；圓面積公式認準半徑！",
+          sampleQ: "一個半徑 10 公分、圓心角 72° 的扇形，請問它的面積與周長各是多少？",
+          presetKey: "sector_perimeter"
+        },
+        {
+          unit: "🏃 速率問題（往返平均速率陷阱 ＆ 同向追趕）",
+          wrongHabit: "❌ 上山時速 2 公里、下山時速 6 公里，誤以為平均時速是 (2 ＋ 6) ÷ 2 ＝ 4 公里；或同向追趕誤用速率相加。",
+          correctGuide: "⭕ **平均速率唯一公式 ＝ 總距離 ÷ 總時間**（絕不是兩速率相加除以 2）！同向追趕每分鐘縮短的是「速率差（快 － 慢）」。",
+          avoidTip: "平均速率 ＝ 總路程 ÷ 總時間；同向追趕除速率差，相向相遇除速率和！",
+          sampleQ: "妹妹每分鐘走 60 公尺，先出發 5 分鐘後，哥哥以每分鐘 85 公尺的速率從同地同向追趕，請問哥哥出發幾分鐘後可以追上妹妹？",
+          presetKey: "speed_average"
+        },
+        {
+          unit: "🗺️ 比例尺面積平方倍 ＆ 成本加成再打折",
+          wrongHabit: "❌ 比例尺 1 : 2000 算面積時只放大 2000 倍；或以為「加三成五再打八折」等於 ＋35% － 20% ＝ ＋15%。",
+          correctGuide: "⭕ 長度放大 2000 倍，面積會放大 2000 × 2000 倍（先換實際長寬再相乘最穩）！加成與打折的基準量不同，必須連乘 1.35 × 0.8！",
+          avoidTip: "算實際面積先換實際長與寬；加成打折基準不同要分步連乘！",
+          sampleQ: "在比例尺 1 : 2000 的縮圖上，有一塊長 15 公分、寬 10 公分的長方形土地，請問這塊土地的實際面積是多少公頃？",
+          presetKey: "scale_area"
+        }
+      ]
+    };
+
+    function scrollToGradeMisconceptions() {
+      const el = document.getElementById('gradeMisconceptionsSection');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function selectMisconceptionGrade(gradeKey) {
+      activeMisconceptionGrade = gradeKey;
+      ['1年級', '2年級', '3年級', '4年級', '5年級', '6年級', '全部'].forEach(g => {
+        const btn = document.getElementById('gm-tab-' + g);
+        if (btn) btn.classList.remove('grade-tab-active');
+      });
+      const activeBtn = document.getElementById('gm-tab-' + gradeKey);
+      if (activeBtn) activeBtn.classList.add('grade-tab-active');
+      renderGradeMisconceptionsUI();
+    }
+
+    function renderGradeMisconceptionsUI() {
+      const box = document.getElementById('gradeMisconceptionsContainer');
+      if (!box) return;
+      const gradesToShow = activeMisconceptionGrade === '全部'
+        ? ['1年級', '2年級', '3年級', '4年級', '5年級', '6年級']
+        : [activeMisconceptionGrade];
+
+      let htmlOut = '';
+      for (const g of gradesToShow) {
+        const items = GRADE_BY_GRADE_MISCONCEPTIONS[g] || [];
+        htmlOut += `
+          <div class="space-y-2">
+            <div class="flex items-center justify-between bg-slate-950 border border-amber-500/40 rounded-lg px-3 py-1.5">
+              <span class="text-xs font-extrabold text-amber-300">🎒 國小【${g}】最常扣分的 4 大易錯觀念</span>
+              <span class="text-[10px] text-slate-400">共 ${items.length} 個必考陷阱</span>
+            </div>
+            <div class="grid grid-cols-1 gap-2">
+              ${items.map((item, idx) => `
+                <div class="bg-slate-950/95 border border-slate-800 hover:border-amber-500/40 rounded-xl p-3 space-y-1.5 transition">
+                  <div class="flex flex-wrap items-center justify-between gap-1.5">
+                    <span class="text-xs font-extrabold text-white"><span class="text-amber-400 mr-1">[${g}-${idx + 1}]</span>${item.unit}</span>
+                    <button onclick="practiceGradeMisconception('${g}', ${idx})" class="text-[10px] bg-emerald-600/30 hover:bg-emerald-600 text-emerald-200 hover:text-white border border-emerald-500/50 px-2.5 py-0.5 rounded-full font-bold transition shrink-0">
+                      <i class="fa-solid fa-play mr-1"></i>帶入代表題演練
+                    </button>
+                  </div>
+                  <div class="text-[11px] text-rose-300 bg-rose-950/35 border border-rose-500/30 rounded-lg px-2.5 py-1.5 leading-relaxed">
+                    ${formatMathMarkdown(item.wrongHabit)}
+                  </div>
+                  <div class="text-[11px] text-emerald-200 bg-emerald-950/35 border border-emerald-500/30 rounded-lg px-2.5 py-1.5 leading-relaxed">
+                    ${formatMathMarkdown(item.correctGuide)}
+                  </div>
+                  <div class="text-[11px] text-amber-300 font-semibold px-1">
+                    💡 考場避坑口訣：${formatMathMarkdown(item.avoidTip)}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+      box.innerHTML = htmlOut;
+      if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([box]);
+    }
+
+    function practiceGradeMisconception(gradeKey, itemIdx) {
+      const item = (GRADE_BY_GRADE_MISCONCEPTIONS[gradeKey] || [])[itemIdx];
+      if (!item) return;
+      if (gradeKey === '1年級' || gradeKey === '2年級') setElementarySubGrade('低年級');
+      else if (gradeKey === '3年級' || gradeKey === '4年級') setElementarySubGrade('中年級');
+      else setElementarySubGrade('高年級');
+
+      if (item.presetKey && ELEMENTARY_TOPICS[item.presetKey]) {
+        loadTopicPreset(item.presetKey);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // 動態組裝該年級易錯代表題的視覺化引導卡
+      document.getElementById('questionInput').value = item.sampleQ;
+      const customTopic = {
+        id: `gm_${gradeKey}_${itemIdx}`,
+        unit: `🎒 國小${gradeKey}必考易錯：${item.unit}`,
+        trapRating: `🚨 ${gradeKey}頭號易錯陷阱（90%小朋友常在這裡粗心扣分）`,
+        keySignal: `🔍 避坑口訣：${item.avoidTip}`,
+        problem: item.sampleQ,
+        coreConcept: `<div>1. **本題常見錯誤迷思**：${item.wrongHabit}</div><div>2. **正確觀念引導**：${item.correctGuide}</div>`,
+        diagramType: `${gradeKey}「觀念對照與步驟拆解」圖解模型`,
+        svgDiagram: `
+          <svg viewBox="0 0 520 110" class="w-full max-w-[500px] h-auto">
+            <rect x="10" y="12" width="242" height="86" rx="8" fill="#be123c" fill-opacity="0.35" stroke="#f43f5e" stroke-width="1.5"/>
+            <text x="131" y="36" fill="#fda4af" font-size="12" font-weight="bold" text-anchor="middle">❌ ${gradeKey}常見直覺錯誤</text>
+            <text x="131" y="60" fill="#ffe4e6" font-size="11" font-weight="bold" text-anchor="middle">沒看清基準或單位就直接加減</text>
+            <text x="131" y="82" fill="#fda4af" font-size="10" text-anchor="middle">（最容易掉進題目字面陷阱！）</text>
+
+            <rect x="268" y="12" width="242" height="86" rx="8" fill="#047857" fill-opacity="0.45" stroke="#10b981" stroke-width="2"/>
+            <text x="389" y="36" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">⭕ 正確圖解避坑步驟</text>
+            <text x="389" y="60" fill="#ecfdf5" font-size="11" font-weight="bold" text-anchor="middle">先圈關鍵字 ➔ 對齊單位 ➔ 逆驗算</text>
+            <text x="389" y="82" fill="#fde68a" font-size="10" font-weight="bold" text-anchor="middle">💡 ${item.avoidTip.slice(0, 22)}</text>
+          </svg>
+        `,
+        errorTraps: [
+          {
+            wrongTitle: item.wrongHabit,
+            whyWrong: `這是國小${gradeKey}月考最常出現的經典陷阱，因為小朋友常只看單一關鍵字就急著列式！`,
+            rightFix: `${item.correctGuide}（💡 ${item.avoidTip}）`
+          }
+        ],
+        steps: [
+          { step: 1, title: "【Step 1｜圈出題目關鍵字與單位】先看清楚題目給的條件和最後問的單位是什麼？", why: item.avoidTip },
+          { step: 2, title: "【Step 2｜避開常見錯誤迷思】對照上面的『正確觀念』列出算式", why: item.correctGuide },
+          { step: 3, title: "【Step 3｜算出答案並代回題目檢查】算完後檢查數字大小與單位合不合理？", why: "養成 5 秒逆運算驗算習慣，月考不粗心！" }
+        ],
+        fullSolution: `### 🌱 國小${gradeKey}【${item.unit}】觀念與避坑解析
+- **代表題目**：${item.sampleQ}
+- **${item.wrongHabit}**
+- **${item.correctGuide}**
+- **💡 必背避坑口訣**：**${item.avoidTip}**
+
+*(若已填入 Gemini API Key，點選左欄「觀念與易錯解析」即可由 AI 產生本題完整四則算式與逐步驗算！)*`,
+        firstQuestion: `我們現在來挑戰國小 **${gradeKey}** 最常考的【${item.unit}】！
+題目是：「${item.sampleQ}」
+👉 動筆前先想想：**${item.avoidTip}**，你覺得第一步要先算什麼呢？`
+      };
+      renderTopicToUI(customTopic);
+      showToast(`已載入國小【${gradeKey}】易錯代表題：<b>${item.unit}</b>`, "success");
+    }
+
+    // 將深色模式的 SVG 線段圖轉換為「白底高對比印刷版 SVG」，解決 PDF 預覽看不清楚的問題
+    function convertSvgForWhitePdf(svgHtml) {
+      if (!svgHtml) return "";
+      let s = String(svgHtml);
+      // 將深色背景框轉為淺灰白底框
+      s = s.replace(/fill="#(0f172a|1e293b|334155)"/gi, 'fill="#f1f5f9"');
+      // 降低色塊填充透明度，讓深色文字在白紙上極度清晰
+      s = s.replace(/fill-opacity="0\.(35|4|45|5|55|6)"/gi, 'fill-opacity="0.16"');
+      // 將原本為深色背景設計的淺粉、淺綠、淺黃、淺藍、純白文字，全面轉為高對比深色墨水
+      const colorMap = {
+        '#fda4af': '#9f1239', // 淺粉 -> 深玫瑰紅
+        '#ffe4e6': '#881337',
+        '#fbcfe8': '#831843',
+        '#6ee7b7': '#064e3b', // 淺綠 -> 深翡翠綠
+        '#34d399': '#065f46',
+        '#d1fae5': '#064e3b',
+        '#ecfdf5': '#064e3b',
+        '#fde68a': '#92400e', // 淺黃 -> 深琥珀棕
+        '#fbbf24': '#b45309',
+        '#38bdf8': '#1e3a8a', // 淺藍 -> 深海軍藍
+        '#bae6fd': '#1e3a8a',
+        '#bfdbfe': '#1e3a8a',
+        '#e0f2fe': '#0c4a6e',
+        '#c7d2fe': '#312e81', // 淺紫 -> 深靛藍
+        '#94a3b8': '#1e293b', // 淺灰 -> 深石板黑
+        '#e2e8f0': '#0f172a',
+        '#ffffff': '#0f172a'  // 純白字 -> 深黑字
+      };
+      for (const [lightHex, darkHex] of Object.entries(colorMap)) {
+        const re = new RegExp(`fill="${lightHex}"`, 'gi');
+        s = s.replace(re, `fill="${darkHex}"`);
+      }
+      return s;
+    }
+
+    function setPdfGradeTableMode(mode) {
+      pdfGradeTableMode = mode;
+      const curBtn = document.getElementById('pdfModeCurrentBtn');
+      const allBtn = document.getElementById('pdfModeAllBtn');
+      if (curBtn && allBtn) {
+        if (mode === 'current') {
+          curBtn.className = "text-[11px] bg-emerald-600 text-white px-2.5 py-1 rounded-lg font-bold transition";
+          allBtn.className = "text-[11px] bg-slate-800 hover:bg-slate-700 text-amber-200 border border-amber-500/40 px-2.5 py-1 rounded-lg font-bold transition";
+        } else {
+          allBtn.className = "text-[11px] bg-emerald-600 text-white px-2.5 py-1 rounded-lg font-bold transition";
+          curBtn.className = "text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-lg font-bold transition";
+        }
+      }
+      populatePdfSheet();
+    }
+
+    // 當前鎖定題目物件
+    let currentTopic = ELEMENTARY_TOPICS.base_compare;
+
+    // ================= 初始化 =================
+    window.onload = () => {
+      const savedKey = safeGetStorage('GEMINI_API_KEY');
+      if (savedKey) document.getElementById('apiKeyInput').value = savedKey;
+      const savedModel = safeGetStorage('GEMINI_MODEL_NAME');
+      if (savedModel) document.getElementById('modelSelect').value = savedModel;
+      updateApiTierUI();
+      if (savedKey) probeApiBillingTier(savedKey, getModelName(), true).catch(() => {});
+
+      renderTrapEncyclopedia();
+      renderGradeMisconceptionsUI();
+      loadTopicPreset('base_compare', true);
+    };
+
+    window.addEventListener('paste', (e) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (let item of items) {
+        if (item.type.indexOf('image') !== -1) {
+          handleImageFile(item.getAsFile());
+        }
+      }
+    });
+
+    // ================= API 付費 / 免費自動偵測與呼叫引擎（國小強制 L1 thinkingBudget: 0 極速回應） =================
+    function getModelName() {
+      return document.getElementById('modelSelect')?.value || 'gemini-2.5-flash';
+    }
+    function onChangeModelSelect(v) {
+      safeSetStorage('GEMINI_MODEL_NAME', v);
+      showToast(`已切換模型為：<code>${v}</code>`, "info");
+    }
+
+    function updateApiTierUI() {
+      const dot = document.getElementById('apiTierDot');
+      const txt = document.getElementById('apiTierBadgeText');
+      if (!dot || !txt) return;
+      if (apiBillingTier === 'paid') {
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0";
+        txt.className = "text-[11px] font-bold text-emerald-300 truncate";
+        txt.innerText = "💳 付費版 API：6路極速併發 (0思考延遲)";
+      } else {
+        dot.className = "w-2 h-2 rounded-full bg-amber-400 shrink-0";
+        txt.className = "text-[11px] font-bold text-amber-300 truncate";
+        txt.innerText = "🆓 免費版 API：智慧降速護航 (防429節流)";
+      }
+    }
+
+    function toggleApiBillingTier() {
+      apiBillingTier = apiBillingTier === 'paid' ? 'free' : 'paid';
+      safeSetStorage('GEMINI_BILLING_TIER', apiBillingTier);
+      updateApiTierUI();
+      showToast(
+        apiBillingTier === 'paid'
+          ? "💳 已切換為【付費版 API 極速模式】：啟用 6 路平行併發 ＋ 國小 L1 零思考延遲（每題 1.5 秒）！"
+          : "🆓 已切換為【免費版 API 降速護航】：啟用 1.4 秒節流保護，避免觸發 429 限制！",
+        apiBillingTier === 'paid' ? "success" : "info"
+      );
+    }
+
+    async function probeApiBillingTier(key, modelName = 'gemini-2.0-flash-lite', silent = false) {
+      if (!key) return 'paid';
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${encodeURIComponent(key)}`;
+      const body = JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: "1+1=" }] }],
+        generationConfig: { maxOutputTokens: 3, temperature: 0 }
+      });
+      try {
+        const resArr = await Promise.all([
+          fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }),
+          fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }),
+          fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
+        ]);
+        const hit429 = resArr.some(r => r.status === 429);
+        apiBillingTier = hit429 ? 'free' : 'paid';
+        safeSetStorage('GEMINI_BILLING_TIER', apiBillingTier);
+        updateApiTierUI();
+        if (!silent) {
+          showToast(apiBillingTier === 'paid' ? "💳 自動偵測為【付費版 API】！已啟用 6 路高併發極速解題" : "🆓 偵測為免費版額度，已啟用智慧降速護航", "success");
+        }
+        return apiBillingTier;
+      } catch (e) {
+        return apiBillingTier;
+      }
+    }
+
+    async function saveAndDetectModels() {
+      const key = document.getElementById('apiKeyInput').value.trim();
+      const statusEl = document.getElementById('apiStatus');
+      const btn = document.getElementById('detectModelBtn');
+      if (!key) {
+        safeRemoveStorage('GEMINI_API_KEY');
+        statusEl.innerText = "ℹ️ 未填 API Key，使用內建國小 8 大易錯題庫與 14 題全卷秒解沙盒";
+        showToast("已清除 API Key，切換為內建題庫模式", "warn");
+        return;
+      }
+      safeSetStorage('GEMINI_API_KEY', key);
+      btn.disabled = true;
+      btn.innerText = "偵測中...";
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(key)}`);
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error?.message || "API Key 驗證失敗");
+        const tier = await probeApiBillingTier(key, 'gemini-2.0-flash-lite', true);
+        statusEl.innerText = `✔ API 驗證成功！偵測為 ${tier === 'paid' ? '💳 付費版極速模式 (6路併發)' : '🆓 免費版降速護航'} ｜ 國小 L1 零延遲已啟用`;
+        showToast("API Key 驗證成功！已開啟國小觀念與易錯極速解析引擎", "success");
+      } catch (err) {
+        statusEl.innerText = `❌ 驗證失敗：${err.message}`;
+        showToast(`API 驗證失敗：${err.message}`, "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "儲存並偵測";
+      }
+    }
+
+    async function callElementaryGemini(sysInstruction, userPrompt, imgB64 = null, imgMime = "image/jpeg") {
+      const apiKey = document.getElementById('apiKeyInput').value.trim() || safeGetStorage('GEMINI_API_KEY');
+      if (!apiKey) throw new Error("尚未填入 Gemini API Key");
+
+      if (apiBillingTier === 'free') {
+        const now = Date.now();
+        const waitMs = Math.max(0, lastFreeCallTs + 1400 - now);
+        lastFreeCallTs = Math.max(now, lastFreeCallTs + 1400);
+        if (waitMs > 0) await new Promise(r => setTimeout(r, waitMs));
+      }
+
+      const models = [getModelName(), 'gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-2.0-flash-lite']
+        .filter((v, i, a) => v && a.indexOf(v) === i);
+      const parts = [];
+      if (imgB64) parts.push({ inline_data: { mime_type: imgMime || "image/jpeg", data: imgB64 } });
+      parts.push({ text: userPrompt });
+
+      let lastErr = null;
+      for (const m of models) {
+        try {
+          const genConfig = { temperature: 0.15 };
+          // ★ 國小階段一律設定 thinkingBudget: 0，消除 10 秒隱藏思考延遲，實現 1.5 秒極速回應！
+          if (m.startsWith('gemini-2.5')) {
+            genConfig.thinkingConfig = { thinkingBudget: 0 };
+          }
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(apiKey)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              system_instruction: { parts: [{ text: sysInstruction }] },
+              contents: [{ role: "user", parts }],
+              generationConfig: genConfig
+            })
+          });
+          const data = await res.json();
+          if (!res.ok || data.error) {
+            if (res.status === 429) {
+              apiBillingTier = 'free';
+              safeSetStorage('GEMINI_BILLING_TIER', 'free');
+              updateApiTierUI();
+              await new Promise(r => setTimeout(r, 1400));
+            }
+            throw new Error(data.error?.message || `HTTP ${res.status}`);
+          }
+          const textOut = data.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n").trim() || "";
+          if (!textOut) throw new Error("空白回應");
+          return textOut;
+        } catch (e) {
+          lastErr = e;
+        }
+      }
+      throw lastErr || new Error("API 呼叫失敗");
+    }
+
+    function safeParseJson(rawText) {
+      let s = String(rawText || "").trim().replace(/^```(?:json)?/i, "").replace(/```$/i, "").trim();
+      const fb = s.indexOf("{"), lb = s.lastIndexOf("}");
+      if (fb !== -1 && lb !== -1) s = s.slice(fb, lb + 1);
+      const latexRe = /(?<!\\)\\(frac|times|div|boxed|text|circ|implies|sqrt|le|ge|neq)\b/g;
+      let p = s.replace(latexRe, "\\\\$1");
+      p = p.replace(/(?<!\\)\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})/g, "\\\\");
+      try { return JSON.parse(p); } catch (e) {
+        return JSON.parse(p.replace(/[\r\n]+/g, "\\n"));
+      }
+    }
+
+    // ================= 國小年級切換 =================
+    function setElementarySubGrade(subg) {
+      currentSubGrade = subg;
+      ['低年級', '中年級', '高年級'].forEach(g => {
+        const b = document.getElementById('subg-' + g);
+        if (b) b.classList.remove('grade-pill-active');
+      });
+      const active = document.getElementById('subg-' + subg);
+      if (active) active.classList.add('grade-pill-active');
+      const labels = {
+        '低年級': '低年級 (一、二年級：十個一數・畫圈圖解)',
+        '中年級': '中年級 (三、四年級：整數四則・周長面積)',
+        '高年級': '高年級 (五、六年級：基準量・速率・扇形)'
+      };
+      document.getElementById('gradeLevelTag').innerText = labels[subg] || subg;
+      if (subg === '低年級') selectMisconceptionGrade('2年級');
+      else if (subg === '中年級') selectMisconceptionGrade('4年級');
+      else selectMisconceptionGrade('6年級');
+      showToast(`已切換引導語言為：<b>🌱 國小${labels[subg]}</b>（全程禁用代數 x, y）`, "info");
+    }
+
+    // ================= 渲染當前題目之「觀念 ＋ 線段圖 ＋ 易錯陷阱 ＋ 步驟」 =================
+    function renderTopicToUI(topic, isInitial = false) {
+      currentTopic = topic;
+      currentStepIdx = 0;
+
+      document.getElementById('unitBadge').innerText = topic.unit || "🌱 國小數學核心觀念";
+      document.getElementById('trapCategoryBadge').innerText = topic.trapRating || "🚨 易錯陷阱重點題";
+      document.getElementById('keySignalTag').innerText = topic.keySignal || "🔍 先圈出關鍵字與單位";
+      document.getElementById('problemDisplay').innerHTML = formatMathMarkdown(topic.problem || "");
+      document.getElementById('coreConceptBox').innerHTML = formatMathMarkdown(topic.coreConcept || "");
+      document.getElementById('diagramTypeLabel').innerText = topic.diagramType || "視覺化線段圖模型";
+
+      const diagBox = document.getElementById('visualDiagramContainer');
+      diagBox.innerHTML = topic.svgDiagram || buildDynamicBarModelSvg(topic);
+
+      const trapsBox = document.getElementById('errorTrapsContainer');
+      const traps = Array.isArray(topic.errorTraps) ? topic.errorTraps : [];
+      trapsBox.innerHTML = traps.map((t, idx) => `
+        <div class="rounded-xl p-3 space-y-2 bg-slate-950/90 border border-slate-800">
+          <div class="trap-card-wrong rounded-lg p-2.5 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-extrabold text-rose-300">${formatMathMarkdown(t.wrongTitle || `❌ 常見錯誤 ${idx + 1}`)}</span>
+              <button onclick="diagnoseSelectedMistake(${idx})" class="text-[10px] bg-rose-500/25 hover:bg-rose-500/40 text-rose-200 border border-rose-400/40 px-2 py-0.5 rounded-full shrink-0 transition">
+                <i class="fa-solid fa-magnifying-glass mr-0.5"></i>點我聽家教解釋為何錯
+              </button>
+            </div>
+            <div class="text-[11px] text-slate-300 leading-relaxed">🤔 <strong>為什麼這樣算會錯：</strong>${formatMathMarkdown(t.whyWrong || "")}</div>
+          </div>
+          <div class="trap-card-right rounded-lg p-2.5">
+            <div class="text-[11px] text-emerald-200 leading-relaxed">${formatMathMarkdown(t.rightFix || "")}</div>
+          </div>
+        </div>
+      `).join('');
+
+      const qBtn0 = document.getElementById('quickTrapBtn0');
+      if (qBtn0 && traps[0]) {
+        const shortWrong = (traps[0].wrongTitle || "").replace(/❌\s*常見錯誤[一二12]?[（(][^）)]+[）)][：:]\s*/, "").replace(/\$/g, "");
+        qBtn0.innerText = `🤔 為什麼不能「${shortWrong.slice(0, 16)}」？`;
+      }
+
+      renderStepsList();
+      document.getElementById('fullSolutionText').innerHTML = formatMathMarkdown(topic.fullSolution || "");
+
+      chatHistory = [];
+      const chatBox = document.getElementById('chatMessages');
+      chatBox.innerHTML = '';
+      appendChat('ai', `🌱 **歡迎來到國小觀念與易錯診斷室！**\n這題屬於 **【${topic.unit}】**。\n\n🚨 **動筆前先避開頭號陷阱**：\n${traps[0]?.wrongTitle || '看清基準量與單位'}\n\n現在我們看著中間的**彩色圖解模型**，先想 **Step 1**：\n👉 ${topic.firstQuestion || '從題目中你看到了哪些關鍵數字呢？'}`);
+
+      populatePdfSheet();
+    }
+
+    function renderStepsList() {
+      const box = document.getElementById('stepsContainer');
+      const steps = Array.isArray(currentTopic.steps) ? currentTopic.steps : [];
+      box.innerHTML = steps.map((s, idx) => {
+        const isCur = idx === currentStepIdx;
+        const isDone = idx < currentStepIdx;
+        const cls = isCur
+          ? "border-emerald-500 bg-emerald-950/30"
+          : (isDone ? "border-teal-500/40 bg-teal-950/15" : "border-slate-800 bg-slate-900/70");
+        return `
+          <div onclick="selectStep(${idx})" class="border rounded-xl p-3 cursor-pointer transition ${cls}">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <span class="text-xs font-bold text-white">${formatMathMarkdown(s.title)}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full shrink-0 font-bold ${isCur ? 'bg-emerald-600 text-white' : (isDone ? 'bg-teal-600/30 text-teal-300' : 'bg-slate-800 text-slate-400')}">
+                ${isDone ? '✔ 已過關' : (isCur ? '🔥 思考中' : '待挑戰')}
+              </span>
+            </div>
+            <div class="text-[11px] text-slate-300">💡 <strong>觀念目的：</strong>${formatMathMarkdown(s.why)}</div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('stepProgressBadge').innerText = `Step ${currentStepIdx + 1} / ${steps.length || 3}`;
+      if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([box]);
+    }
+
+    function selectStep(idx) {
+      currentStepIdx = idx;
+      renderStepsList();
+      const s = currentTopic.steps?.[idx];
+      if (s) {
+        appendChat('ai', `🎯 **切換至 ${s.title}**\n💡 *提示：${s.why}*\n試著列出這一步的算式或想法吧！`);
+      }
+    }
+
+    function loadTopicPreset(key, isInit = false) {
+      const topic = ELEMENTARY_TOPICS[key];
+      if (!topic) return;
+      document.getElementById('questionInput').value = topic.problem.replace(/\$/g, '');
+      renderTopicToUI(topic, isInit);
+      if (!isInit) {
+        showToast(`已載入國小必考易錯題：<b>${topic.unit}</b>`, "success");
+      }
+    }
+
+    function buildDynamicBarModelSvg(topic) {
+      const title = (topic.diagramType || "基準量與數量關係線段圖").slice(0, 26);
+      const sig = (topic.keySignal || "先找基準量 1 份，再對齊數量與分率").slice(0, 38);
+      return `
+        <svg viewBox="0 0 520 105" class="w-full max-w-[490px] h-auto">
+          <rect x="12" y="15" width="496" height="76" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+          <text x="260" y="38" fill="#6ee7b7" font-size="12" font-weight="bold" text-anchor="middle">📏 視覺化線段圖模型：${title}</text>
+          <rect x="35" y="48" width="210" height="26" rx="5" fill="#0284c7" fill-opacity="0.45" stroke="#38bdf8"/>
+          <text x="140" y="65" fill="#e0f2fe" font-size="11" font-weight="bold" text-anchor="middle">已知條件 A (先確定基準量 1 份)</text>
+          <rect x="255" y="48" width="230" height="26" rx="5" fill="#047857" fill-opacity="0.5" stroke="#10b981"/>
+          <text x="370" y="65" fill="#d1fae5" font-size="11" font-weight="bold" text-anchor="middle">${sig}</text>
+        </svg>
+      `;
+    }
+
+    // ================= 啟動單題 AI 觀念與易錯解析 =================
+    async function analyzeCurrentQuestion() {
+      const qText = document.getElementById('questionInput').value.trim();
+      const apiKey = document.getElementById('apiKeyInput').value.trim() || safeGetStorage('GEMINI_API_KEY');
+
+      if (!qText && !currentImageBase64) {
+        showToast("請先輸入國小數學題目或上傳考卷照片！", "warn");
+        return;
+      }
+
+      const matched = matchBuiltinElementaryTopic(qText);
+      if (!apiKey && matched) {
+        renderTopicToUI(matched);
+        showToast("⚡ 已載入內建觀念圖解與易錯陷阱診斷！", "success");
+        return;
+      }
+
+      if (!apiKey) {
+        showToast("解析自訂新題目或照片請於左上角填入 Gemini API Key（或點選左下方 8 大易錯題庫體驗）！", "warn");
+        return;
+      }
+
+      const btn = document.getElementById('analyzeBtn');
+      btn.disabled = true;
+      const t0 = performance.now();
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> L1 極速診斷中...`;
+
+      try {
+        const parsedTopic = await solveElementaryQuestionWithAI(qText, currentImageBase64, currentImageMime);
+        const sec = ((performance.now() - t0) / 1000).toFixed(1);
+        renderTopicToUI(parsedTopic);
+        document.getElementById('topStatusBanner').innerText = `⚡ 國小 L1 觀念與易錯診斷完成（僅耗時 ${sec} 秒｜0 思考延遲｜無超綱代數）`;
+        showToast(`⚡ 觀念與易錯陷阱解析完成（耗時 <b>${sec} 秒</b>）！`, "success");
+      } catch (err) {
+        if (matched) {
+          renderTopicToUI(matched);
+          showToast(`連線異常 (${err.message})，已自動載入內建圖解題庫`, "warn");
+        } else {
+          showToast(`解析失敗：${err.message}`, "error");
+        }
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-magnifying-glass-chart"></i> 觀念與易錯解析`;
+      }
+    }
+
+    function matchBuiltinElementaryTopic(text) {
+      const t = String(text || "");
+      if (t.includes("緞帶") && t.includes("3/8")) return ELEMENTARY_TOPICS.base_compare;
+      if (t.includes("彩帶") && t.includes("1/4")) return ELEMENTARY_TOPICS.fraction_unit;
+      if (t.includes("路燈") || (t.includes("48") && t.includes("72"))) return ELEMENTARY_TOPICS.tree_interval;
+      if (t.includes("2000") && t.includes("公頃")) return ELEMENTARY_TOPICS.scale_area;
+      if (t.includes("扇形") && t.includes("72")) return ELEMENTARY_TOPICS.sector_perimeter;
+      if (t.includes("妹妹") && t.includes("85")) return ELEMENTARY_TOPICS.speed_average;
+      if (t.includes("三成五") || t.includes("1200")) return ELEMENTARY_TOPICS.discount_markup;
+      if (t.includes("680") || (t.includes("10") && t.includes("50") && t.includes("20"))) return ELEMENTARY_TOPICS.chicken_rabbit_coin;
+      for (const item of GRADE6_14_EXAM) {
+        if (t && item.problem && t.slice(0, 10) === item.problem.replace(/\$/g, '').slice(0, 10)) return item;
+      }
+      return null;
+    }
+
+    async function solveElementaryQuestionWithAI(qText, imgB64 = null, imgMime = "image/jpeg") {
+      const sys = `你是台灣最頂尖的「🌱 國小數學觀念圖解與易錯陷阱診斷名師」。
+【鐵律】：
+1. 對象是國小【${currentSubGrade}】學生，**嚴格禁止出現 x, y 代數未知數方程式、負數或國高中公式**！必須使用「基準量1份、線段圖份數法、假設替換法、面積逆推法」講解。
+2. 採用【L1 簡易快速答案檢核】：直接以逆運算確認最終答案 100% 正確。
+3. 必須深入抓出國小學生在這題最常犯的 **2 個具體易錯陷阱**（例如：誰除誰搞反、直徑當半徑、扇形周長忘加2條半徑、分率與實際量混淆、植樹加1減1搞錯、單位漏換等），清楚對比「❌ 小朋友常犯錯誤算式」與「⭕ 正確避坑觀念」。`;
+
+      const usr = `請解析這道國小數學題（${currentSubGrade}）：
+題目文字：${qText || '請辨識圖片中的國小數學題'}
+
+請嚴格回傳 JSON 格式（使用 \`\`\`json 包裹；算式請直接使用國小直覺符號 ×、÷、°、➔，分數可寫為 \\frac{分子}{分母}，嚴禁輸出任何英文變數或程式代碼）：
+{
+  "unit": "🌱 國小單元名稱",
+  "trapRating": "🚨 易錯指數：★★★★★（一句話點出最大陷阱）",
+  "keySignal": "🔍 關鍵字：圈出決定解法的題眼詞",
+  "problem": "完整題目敘述（使用 LaTeX $...$）",
+  "coreConcept": "1. **核心觀念一**：...\\n2. **核心觀念二**：...",
+  "diagramType": "線段圖或圖解名稱",
+  "errorTraps": [
+    {
+      "wrongTitle": "❌ 常見錯誤一：寫出小朋友最常算錯的錯誤算式",
+      "whyWrong": "用親切白話解釋為什麼這樣算會錯",
+      "rightFix": "⭕ **正確避坑**：正確的觀念與算式"
+    },
+    {
+      "wrongTitle": "❌ 常見錯誤二：第二個常見粗心或單位陷阱",
+      "whyWrong": "為什麼會掉進這個陷阱",
+      "rightFix": "⭕ **正確避坑**：正確做法與檢核口訣"
+    }
+  ],
+  "steps": [
+    {"step": 1, "title": "【Step 1｜第一步標題】(不劇透最終答案)", "why": "為什麼要先算這一步"},
+    {"step": 2, "title": "【Step 2｜第二步標題】(不劇透最終答案)", "why": "為什麼要算這一步"},
+    {"step": 3, "title": "【Step 3｜算出答案並逆運算驗算】", "why": "把答案代回題目檢查是否合理"}
+  ],
+  "fullSolution": "### 🌱 國小標準詳解\\n#### 步驟一：...\\n$$...$$\\n#### 步驟二：...\\n$$...$$\\n**最終答案**：\\\\boxed{...}",
+  "firstQuestion": "針對 Step 1 問小朋友的一個親切簡單問題",
+  "variation": {
+    "prompt": "【🎯 易錯避坑變題挑戰】出一道同觀念的數字變形題",
+    "ans": "變形題的簡明解答與 \\\\boxed{答案}"
+  }
+}`;
+      const raw = await callElementaryGemini(sys, usr, imgB64, imgMime);
+      return safeParseJson(raw);
+    }
+
+    // ================= 整張考卷 14 題載入、拆題與付費版 6 路極速預解 =================
+    function loadGrade6Full14Exam() {
+      examQueue = GRADE6_14_EXAM.map((item, idx) => ({
+        index: idx + 1,
+        questionNumber: `第 ${idx + 1} 題`,
+        shortTitle: item.unit.replace(/^[^\s]+\s*/, '').slice(0, 8),
+        fullPrompt: item.problem.replace(/\$/g, ''),
+        status: "solved",
+        topicData: JSON.parse(JSON.stringify(item))
+      }));
+      activeExamIdx = 0;
+      document.getElementById('examQueueTitle').innerText = "國小六年級常考易錯 14 題全卷（已全數完成 L1 觀念與易錯快取）";
+      document.getElementById('examQueueBar').classList.remove('hidden');
+      renderExamQueuePills();
+      selectExamQ(0);
+      showToast("⚡ 已載入《國小六年級 14 題常考易錯全卷》！點擊第 1～14 題皆可 0.00 秒瞬看線段圖解與易錯陷阱！", "success");
+    }
+
+    function renderExamQueuePills() {
+      const box = document.getElementById('examQuestionPills');
+      const prog = document.getElementById('examQueueProgress');
+      if (!box || !examQueue.length) return;
+      const solvedCount = examQueue.filter(q => q.status === 'solved' || q.topicData).length;
+      if (prog) prog.innerText = `第 ${activeExamIdx + 1}/${examQueue.length} 題 (已診斷 ${solvedCount} 題)`;
+
+      box.innerHTML = examQueue.map((q, idx) => {
+        const isCur = idx === activeExamIdx;
+        const isSolved = q.status === 'solved' || Boolean(q.topicData);
+        const isSolving = q.status === 'solving';
+        const cls = isCur
+          ? "bg-emerald-500 text-slate-950 border-emerald-300 font-extrabold shadow"
+          : (isSolved
+              ? "bg-emerald-950/70 hover:bg-emerald-900/80 text-emerald-200 border-emerald-500/40 font-semibold"
+              : (isSolving
+                  ? "bg-indigo-950 text-indigo-300 border-indigo-400 animate-pulse"
+                  : "bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700"));
+        const icon = isCur ? "🔥" : (isSolved ? "✔" : (isSolving ? "⏳" : "○"));
+        return `<button onclick="selectExamQ(${idx})" class="text-[11px] px-2 py-1 rounded-lg border transition flex items-center gap-1 ${cls}">
+          <span>${icon} ${q.questionNumber}</span>
+          <span class="text-[10px] opacity-85 hidden sm:inline">(${q.shortTitle})</span>
+        </button>`;
+      }).join('');
+    }
+
+    async function selectExamQ(idx) {
+      if (idx < 0 || idx >= examQueue.length) return;
+      activeExamIdx = idx;
+      const item = examQueue[idx];
+      renderExamQueuePills();
+      document.getElementById('questionInput').value = item.fullPrompt;
+
+      if (item.topicData) {
+        renderTopicToUI(item.topicData);
+        return;
+      }
+
+      const apiKey = document.getElementById('apiKeyInput').value.trim() || safeGetStorage('GEMINI_API_KEY');
+      if (apiKey) {
+        item.status = 'solving';
+        renderExamQueuePills();
+        try {
+          const tData = await solveElementaryQuestionWithAI(item.fullPrompt, null);
+          item.topicData = tData;
+          item.status = 'solved';
+          renderTopicToUI(tData);
+        } catch (e) {
+          showToast(`第 ${idx + 1} 題解析異常：${e.message}`, "warn");
+        } finally {
+          renderExamQueuePills();
+        }
+      }
+    }
+
+    function prevExamQ() {
+      if (activeExamIdx > 0) selectExamQ(activeExamIdx - 1);
+      else showToast("已經是第 1 題囉！", "info");
+    }
+    function nextExamQ() {
+      if (activeExamIdx < examQueue.length - 1) selectExamQ(activeExamIdx + 1);
+      else showToast("🎉 已經完成最後一題囉！", "success");
+    }
+    function closeExamQueue() {
+      document.getElementById('examQueueBar').classList.add('hidden');
+    }
+
+    async function scanAndSplitExam() {
+      const apiKey = document.getElementById('apiKeyInput').value.trim() || safeGetStorage('GEMINI_API_KEY');
+      const rawText = document.getElementById('questionInput').value.trim();
+
+      if (!apiKey) {
+        loadGrade6Full14Exam();
+        return;
+      }
+
+      const btn = document.getElementById('splitExamBtn');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 拆題中...`;
+      try {
+        const sys = `你是國小考卷拆題專家，請將圖片或文字中的每一題拆解為獨立題目清單。`;
+        const usr = `請將這份國小考卷拆解為 JSON 格式（使用 \`\`\`json 包裹）：
+考卷文字或備註：${rawText || '請辨識考卷圖片中的所有題目'}
+{
+  "examTitle": "國小數學考卷",
+  "questions": [
+    {"questionNumber": "第 1 題", "shortTitle": "6字內單元", "fullPrompt": "完整題目敘述"}
+  ]
+}`;
+        const raw = await callElementaryGemini(sys, usr, currentImageBase64, currentImageMime);
+        const parsed = safeParseJson(raw);
+        if (Array.isArray(parsed.questions) && parsed.questions.length > 0) {
+          examQueue = parsed.questions.map((q, i) => ({
+            index: i + 1,
+            questionNumber: q.questionNumber || `第 ${i + 1} 題`,
+            shortTitle: q.shortTitle || `題目 ${i + 1}`,
+            fullPrompt: q.fullPrompt || "",
+            status: "pending",
+            topicData: matchBuiltinElementaryTopic(q.fullPrompt || "")
+          }));
+          activeExamIdx = 0;
+          document.getElementById('examQueueTitle').innerText = parsed.examTitle || `國小考卷（共 ${examQueue.length} 題）`;
+          document.getElementById('examQueueBar').classList.remove('hidden');
+          renderExamQueuePills();
+          await selectExamQ(0);
+          if (apiBillingTier === 'paid') {
+            batchPreSolveAllQuestions(true);
+          }
+          return;
+        }
+        loadGrade6Full14Exam();
+      } catch (e) {
+        loadGrade6Full14Exam();
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-list-ol"></i> 整張考卷拆題`;
+      }
+    }
+
+    async function batchPreSolveAllQuestions(silent = false) {
+      if (!examQueue.length || batchSolving) return;
+      const pending = examQueue.map((q, i) => !q.topicData ? i : -1).filter(i => i !== -1);
+      if (!pending.length) {
+        if (!silent) showToast("⚡ 全卷所有題目皆已完成觀念與易錯快取，點題號 0 秒瞬看！", "success");
+        return;
+      }
+      batchSolving = true;
+      const btn = document.getElementById('batchSolveBtn');
+      const concurrency = apiBillingTier === 'paid' ? 6 : 1;
+      const queue = [...pending];
+      const t0 = performance.now();
+      try {
+        const workers = Array.from({ length: Math.min(concurrency, queue.length) }, async () => {
+          while (queue.length > 0) {
+            const idx = queue.shift();
+            if (idx === undefined) break;
+            const item = examQueue[idx];
+            item.status = 'solving';
+            renderExamQueuePills();
+            try {
+              item.topicData = await solveElementaryQuestionWithAI(item.fullPrompt, null);
+              item.status = 'solved';
+            } catch (e) {
+              item.status = 'pending';
+            }
+            renderExamQueuePills();
+          }
+        });
+        await Promise.all(workers);
+        const sec = ((performance.now() - t0) / 1000).toFixed(1);
+        showToast(`⚡ 全卷共 ${examQueue.length} 題觀念與易錯診斷預解完成（耗時 ${sec}s）！`, "success");
+      } finally {
+        batchSolving = false;
+        if (btn) btn.innerHTML = `<i class="fa-solid fa-bolt"></i> 全卷極速預解`;
+      }
+    }
+
+    // ================= 互動式易錯診斷與蘇格拉底家教對話 =================
+    function diagnoseSelectedMistake(trapIdx = 0) {
+      const traps = currentTopic.errorTraps || [];
+      const t = traps[trapIdx] || traps[0];
+      if (!t) return;
+      appendChat('user', `老師，請問為什麼不能像「${t.wrongTitle.replace(/❌\s*/, '')}」那樣算呢？`);
+      appendChat('ai', `🔍 **抓到易錯陷阱囉！這正是90%小朋友最常被扣分的地方！**\n\n- **${t.wrongTitle}**\n- 🤔 **為什麼會錯**：${t.whyWrong}\n- ${t.rightFix}\n\n這樣對照上面的彩色線段圖看，是不是一下子就清楚了呢？現在試著算算看 **Step ${currentStepIdx + 1}** 吧！`);
+    }
+
+    function askSimpleHint() {
+      const stepObj = currentTopic.steps?.[currentStepIdx] || currentTopic.steps?.[0];
+      appendChat('user', '老師，這一步我還是有點卡住，可以用更簡單的生活例子提示我嗎？');
+      appendChat('ai', `💡 **沒問題！我們用更簡單的方式想【${stepObj?.title || '這一步'}】：**\n- **思考目標**：${stepObj?.why || ''}\n- **小步提示**：${currentTopic.coreConcept || ''}\n\n你先試著寫出第一個算式（不用怕算錯，寫出來老師幫你檢查）！`);
+    }
+
+    function quickRevealAnswer() {
+      document.getElementById('fullSolutionPanel').classList.remove('hidden');
+      appendChat('ai', `✅ **我已經幫你在中間面板下方展開【完整四則算式詳解與逆運算驗算】囉！**\n\n${currentTopic.fullSolution}\n\n👉 **考場避坑小叮嚀**：算完答案後，一定要花 5 秒鐘把答案代回題目做「逆運算檢查」，就能拿滿分囉！`);
+    }
+
+    function triggerDiagnosticQuiz() {
+      const v = currentTopic.variation;
+      if (!v) {
+        showToast("已出同觀念避坑變題於右側聊天室！", "info");
+        return;
+      }
+      appendChat('ai', `🎯 **【同觀念避坑變題挑戰】來囉！看看你有沒有避開剛才的陷阱：**\n\n> ${v.prompt}\n\n請在下方輸入你的算式或答案！（如果想對答案，直接輸入「看變題答案」）`);
+      showToast("🎯 已出同觀念避坑變題於右側對話區！", "success");
+    }
+
+    function generateMistakeNoteCard() {
+      const traps = (currentTopic.errorTraps || []).map(t => `- ${t.wrongTitle}\n  👉 ${t.rightFix}`).join('\n');
+      const card = `### 📕 國小數學【錯題避坑訂正卡】\n- **單元**：${currentTopic.unit}\n- **題目**：${currentTopic.problem}\n- **🔍 題眼關鍵字**：${currentTopic.keySignal}\n\n#### 🚨 我絕對不再踩的陷阱：\n${traps}\n\n#### ✔ 標準算式與答案：\n${currentTopic.fullSolution}`;
+      appendChat('ai', card);
+      showToast("📕 已在右側生成《錯題避坑訂正卡》，可複製或匯出 PDF 貼在錯題本！", "success");
+    }
+
+    async function sendChatMessage(hwB64 = null, hwMime = null) {
+      const input = document.getElementById('chatInput');
+      const txt = input.value.trim();
+      if (!txt && !hwB64) return;
+      input.value = '';
+
+      if (txt && !hwB64) appendChat('user', txt);
+
+      if (txt.includes("變題答案") && currentTopic.variation) {
+        appendChat('ai', `🎉 **【避坑變題解答公佈】**：\n${currentTopic.variation.ans}`);
+        return;
+      }
+
+      const apiKey = document.getElementById('apiKeyInput').value.trim() || safeGetStorage('GEMINI_API_KEY');
+      if (apiKey) {
+        const btn = document.getElementById('sendChatBtn');
+        btn.disabled = true;
+        try {
+          const sys = `你是溫柔且擅長抓出國小學生盲點的國小數學家教（對象：${currentSubGrade}）。
+嚴禁使用 x, y 代數方程式！
+當前題目：${currentTopic.problem}
+核心觀念：${currentTopic.coreConcept}
+易錯陷阱：${JSON.stringify(currentTopic.errorTraps || [])}
+標準詳解：${currentTopic.fullSolution}
+若學生算對了，請給予大大鼓勵並加上 [NEXT_STEP]；若學生掉進了上述易錯陷阱，請溫柔點出他掉進哪個陷阱並引導修正！`;
+          const reply = await callElementaryGemini(sys, `學生發言：${txt || '請批改這張國小手寫算式照片，檢查有無掉進粗心或觀念陷阱'}`, hwB64, hwMime);
+          if (reply.includes('[NEXT_STEP]') && currentStepIdx < (currentTopic.steps?.length || 3) - 1) {
+            currentStepIdx++;
+            renderStepsList();
+          }
+          appendChat('ai', reply.replace(/\[NEXT_STEP\]/g, '').trim());
+          return;
+        } catch (e) {} finally {
+          btn.disabled = false;
+        }
+      }
+
+      if (txt.includes("120") && currentTopic.id === "base_compare") {
+        diagnoseSelectedMistake(0);
+        return;
+      }
+      if (txt.includes("16") && currentTopic.id === "tree_interval") {
+        diagnoseSelectedMistake(0);
+        return;
+      }
+      if (currentStepIdx < (currentTopic.steps?.length || 3) - 1) {
+        currentStepIdx++;
+        renderStepsList();
+        const nextS = currentTopic.steps[currentStepIdx];
+        appendChat('ai', `🟢 **太棒了！觀念非常清楚，完全沒有掉進陷阱裡！** 🎉\n\n接下來我們往下一階邁進：\n👉 **${nextS.title}**\n（💡 *${nextS.why}*）`);
+      } else {
+        appendChat('ai', `🎉 **恭喜你憑自己的力量攻克這道易錯題！**\n你可以點頂部的 **「🎯 易錯避坑變題挑戰」** 測試看看自己是不是真的100%學會了！`);
+      }
+    }
+
+    // ================= 圖片上傳與手寫批改 =================
+    function compressImg(file, maxW = 880) {
+      return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const c = document.createElement('canvas');
+            let w = img.width, h = img.height;
+            if (w > maxW) { h = Math.round(h * (maxW / w)); w = maxW; }
+            c.width = w; c.height = h;
+            c.getContext('2d').drawImage(img, 0, 0, w, h);
+            const dataUrl = c.toDataURL('image/jpeg', 0.8);
+            resolve({ dataUrl, base64: dataUrl.split(',')[1], mime: 'image/jpeg' });
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+    }
+
+    async function onUploadExamImage(e) {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      e.target.value = '';
+      await handleImageFile(f);
+    }
+
+    async function handleImageFile(file) {
+      const { dataUrl, base64, mime } = await compressImg(file);
+      currentImageBase64 = base64;
+      currentImageMime = mime;
+      document.getElementById('previewBox').innerHTML = `
+        <img src="${dataUrl}" class="max-h-20 mx-auto rounded-lg border border-emerald-500/50 object-contain">
+        <p class="text-[10px] text-emerald-300 mt-1">📸 考卷已就緒！點下方「觀念與易錯解析」或「整張考卷拆題」</p>
+      `;
+      showToast("考卷照片已載入！", "success");
+    }
+
+    async function onUploadHandwriting(e) {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      e.target.value = '';
+      const { dataUrl, base64, mime } = await compressImg(f);
+      appendChat('user', '老師，這是我的手寫算式，請幫我看看觀念對不對、有沒有掉進粗心陷阱！', dataUrl);
+      sendChatMessage(base64, mime);
+    }
+
+    function clearCurrentProblem() {
+      currentImageBase64 = null;
+      document.getElementById('questionInput').value = '';
+      document.getElementById('previewBox').innerHTML = `
+        <i class="fa-solid fa-cloud-arrow-up text-xl text-emerald-400"></i>
+        <p class="text-[11px] text-slate-200 font-semibold">點擊上傳國小考卷照片，或於下方輸入題目</p>
+      `;
+      showToast("🧹 已清空題目與圖片！", "info");
+    }
+
+    function toggleFullSolution() {
+      const p = document.getElementById('fullSolutionPanel');
+      p.classList.toggle('hidden');
+      if (!p.classList.contains('hidden')) p.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function copySolutionText() {
+      const t = currentTopic.fullSolution || "";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(t).then(() => showToast("已複製詳解！", "success")).catch(() => fallbackCopy(t));
+      } else {
+        fallbackCopy(t);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast("已複製詳解！", "success"); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    // ================= 8 大易錯陷阱圖鑑 Modal =================
+    function renderTrapEncyclopedia() {
+      const grid = document.getElementById('trapEncyclopediaGrid');
+      if (!grid) return;
+      grid.innerHTML = Object.values(ELEMENTARY_TOPICS).map(t => `
+        <div onclick="loadTopicPreset('${t.id}'); closeTrapRadarModal();" class="bg-slate-900 hover:bg-slate-800/90 border border-slate-700 hover:border-emerald-500/50 rounded-xl p-4 cursor-pointer transition space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-extrabold text-emerald-300">${t.unit}</span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">點此載入圖解 ▶</span>
+          </div>
+          <div class="text-[11px] text-rose-300 font-semibold">${t.trapRating}</div>
+          <div class="text-xs text-slate-200 bg-slate-950 p-2.5 rounded-lg border border-slate-800">${formatMathMarkdown(t.problem)}</div>
+          <div class="text-[11px] text-amber-200">${formatMathMarkdown(t.errorTraps?.[0]?.wrongTitle || '')}</div>
+        </div>
+      `).join('');
+    }
+    function openTrapRadarModal() {
+      const m = document.getElementById('trapRadarModal');
+      m.classList.remove('hidden');
+      if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([m]);
+    }
+    function closeTrapRadarModal() {
+      document.getElementById('trapRadarModal').classList.add('hidden');
+    }
+
+    // ================= A4 觀念與易錯訂正講義 PDF 匯出（無疊印靜態流排版 ＋ 零代碼殘留清晰版） =================
+    function syncPrintDedicatedMount() {
+      const sheet = document.getElementById('pdfPrintableSheet');
+      const mount = document.getElementById('printDedicatedMount');
+      if (!sheet || !mount) return;
+      mount.innerHTML = `<div class="pdf-print-sheet bg-white text-slate-950 p-4 space-y-4 max-w-3xl mx-auto">${sheet.innerHTML}</div>`;
+    }
+
+    async function populatePdfSheet() {
+      document.getElementById('pdfSubtitle').innerText = `單元：${currentTopic.unit} ｜ 適用：國小${currentSubGrade} ｜ 零代數超綱・線段圖解與各年級易錯觀念對照`;
+      document.getElementById('pdfProblem').innerHTML = formatMathMarkdown(currentTopic.problem || "");
+      document.getElementById('pdfConcept').innerHTML = formatMathMarkdown(currentTopic.coreConcept || "");
+      const rawSvg = document.getElementById('visualDiagramContainer').innerHTML;
+      document.getElementById('pdfDiagram').innerHTML = convertSvgForWhitePdf(rawSvg);
+      document.getElementById('pdfTraps').innerHTML = (currentTopic.errorTraps || []).map(t => `
+        <div class="border-2 border-rose-400 bg-rose-50/80 rounded-lg p-3 space-y-1.5 text-slate-950 pdf-avoid-break">
+          <div class="font-extrabold text-rose-950">${formatMathMarkdown(t.wrongTitle)}</div>
+          <div class="text-slate-900 font-medium">🤔 <strong>為什麼這樣算會錯：</strong>${formatMathMarkdown(t.whyWrong)}</div>
+          <div class="text-emerald-950 font-bold bg-emerald-100/70 px-2.5 py-1 rounded border border-emerald-300">${formatMathMarkdown(t.rightFix)}</div>
+        </div>
+      `).join('');
+      document.getElementById('pdfSolution').innerHTML = formatMathMarkdown(currentTopic.fullSolution || "");
+
+      // 填充第五節：依年級列出每個年級容易錯誤的觀念
+      const gradeMapBySub = {
+        '低年級': ['1年級', '2年級'],
+        '中年級': ['3年級', '4年級'],
+        '高年級': ['5年級', '6年級']
+      };
+      const targetGrades = pdfGradeTableMode === 'all'
+        ? ['1年級', '2年級', '3年級', '4年級', '5年級', '6年級']
+        : (gradeMapBySub[currentSubGrade] || ['5年級', '6年級']);
+
+      const titleEl = document.getElementById('pdfGradeTableTitle');
+      if (titleEl) {
+        titleEl.innerText = pdfGradeTableMode === 'all'
+          ? '五、📚 國小一～六年級【各年級最容易錯誤的數學觀念】完整避坑總表'
+          : `五、📚 國小${currentSubGrade}（${targetGrades.join('、')}）【最容易錯誤的數學觀念】重點避坑表`;
+      }
+
+      const tableBox = document.getElementById('pdfGradeMisconceptionsTable');
+      if (tableBox) {
+        tableBox.innerHTML = targetGrades.map(g => {
+          const list = GRADE_BY_GRADE_MISCONCEPTIONS[g] || [];
+          return `
+            <div class="border-2 border-slate-300 rounded-lg overflow-hidden mb-3 pdf-avoid-break">
+              <div class="bg-amber-100 border-b-2 border-amber-300 px-3 py-1.5 font-extrabold text-slate-950 flex items-center justify-between">
+                <span>🎒 國小【${g}】最常扣分的易錯觀念與避坑口訣</span>
+                <span class="text-[11px] text-amber-900 font-bold">考前必檢核</span>
+              </div>
+              <div class="divide-y divide-slate-200 bg-white">
+                ${list.map((it, idx) => `
+                  <div class="p-2.5 space-y-1 pdf-avoid-break">
+                    <div class="font-extrabold text-slate-950">${idx + 1}. ${it.unit}</div>
+                    <div class="text-rose-900 font-semibold">${formatMathMarkdown(it.wrongHabit)}</div>
+                    <div class="text-emerald-950 font-semibold">${formatMathMarkdown(it.correctGuide)}</div>
+                    <div class="text-indigo-950 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">💡 避坑口訣：${formatMathMarkdown(it.avoidTip)}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      syncPrintDedicatedMount();
+    }
+
+    async function openPdfModal() {
+      document.getElementById('pdfModal').classList.remove('hidden');
+      await populatePdfSheet();
+    }
+    function closePdfModal() {
+      document.getElementById('pdfModal').classList.add('hidden');
+    }
+
+    async function downloadPdf() {
+      await populatePdfSheet();
+      const btn = document.getElementById('downloadPdfBtn');
+      const sheet = document.getElementById('pdfPrintableSheet');
+      if (!sheet) return;
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i>產生 PDF 中...`;
+      }
+      try {
+        if (typeof html2pdf !== 'undefined') {
+          // 建立頂層不受滾動條與 fixed 視窗限制的乾淨容器供 html2canvas 擷取，杜絕跨頁截斷與疊印
+          const tempWrapper = document.createElement('div');
+          tempWrapper.style.position = 'fixed';
+          tempWrapper.style.left = '-9999px';
+          tempWrapper.style.top = '0';
+          tempWrapper.style.width = '760px';
+          tempWrapper.style.background = '#ffffff';
+          tempWrapper.innerHTML = `<div class="pdf-print-sheet bg-white text-slate-950 p-6 space-y-4">${sheet.innerHTML}</div>`;
+          document.body.appendChild(tempWrapper);
+
+          await html2pdf().set({
+            margin: [10, 10, 10, 10],
+            filename: `國小數學觀念與易錯講義_${currentTopic.unit.replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, '')}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            pagebreak: { mode: ['css', 'legacy'], avoid: ['.pdf-avoid-break'] },
+            html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          }).from(tempWrapper.firstElementChild).save();
+
+          document.body.removeChild(tempWrapper);
+          showToast("已下載排版清晰的 A4 觀念與易錯訂正講義 PDF！", "success");
+        } else {
+          await printPdf();
+        }
+      } catch (e) {
+        await printPdf();
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = `<i class="fa-solid fa-download mr-1"></i>下載 PDF 講義`;
+        }
+      }
+    }
+
+    async function printPdf() {
+      await populatePdfSheet();
+      syncPrintDedicatedMount();
+      const sheet = document.getElementById('pdfPrintableSheet');
+      if (!sheet) {
+        window.print();
+        return;
+      }
+      // 開啟獨立純白 A4 列印專屬視窗，100% 根除彈窗或滿版容器造成的跨頁疊印問題
+      const printWin = window.open('', '_blank', 'width=920,height=860');
+      if (!printWin) {
+        window.print();
+        return;
+      }
+      const styles = Array.from(document.querySelectorAll('style')).map(s => s.innerHTML).join('\n');
+      printWin.document.write(`<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>🌱 國小數學「觀念圖解 ＆ 易錯陷阱避坑」專屬訂正講義</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"><\/script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    ${styles}
+    @page { size: A4 portrait; margin: 10mm; }
+    html, body {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      height: auto !important;
+      overflow: visible !important;
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .pdf-avoid-break {
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-950 p-4">
+  <div class="pdf-print-sheet bg-white text-slate-950 max-w-3xl mx-auto space-y-4">
+    ${sheet.innerHTML}
+  </div>
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.focus();
+        window.print();
+      }, 350);
+    };
+  <\/script>
+</body>
+</html>`);
+      printWin.document.close();
+    }
+
+    // ================= 國小專用：零代碼殘留、零 Math input error 之數學符號與直式分數渲染引擎 =================
+    function cleanElementaryMathTokens(rawStr) {
+      if (!rawStr) return "";
+      let s = String(rawStr);
+
+      // 1. 修復曾被單反斜線控制字元 (\t, \f, \b, \r) 吃掉的 LaTeX 指令
+      s = s.replace(/\x09imes/g, " × ");
+      s = s.replace(/\x09ext\{([^{}]*)\}/g, "$1");
+      s = s.replace(/\x0crac\{([^{}]+)\}\{([^{}]+)\}/g, "\\frac{$1}{$2}");
+      s = s.replace(/\x08oxed\{([^{}]*)\}/g, "\\boxed{$1}");
+
+      // 2. 移除或轉換殘留的英文指令殘片 (如 4imes5, 38div6, 6dots2, 120^circ, ext{...}, perp)
+      s = s.replace(/\\text\{([^{}]*)\}/g, "$1");
+      s = s.replace(/\bext\{([^{}]*)\}/g, "$1");
+      s = s.replace(/\\boxed\{([^{}]*)\}/g, '<span class="ans-badge">$1</span>');
+      s = s.replace(/\bboxes\{([^{}]*)\}/g, '<span class="ans-badge">$1</span>');
+
+      // 3. 將所有帶分數與真分數 \frac{a}{b} 轉為教科書級直式分數 HTML (.v-frac)，100% 杜絕 Math input error 與跨頁跑版
+      s = s.replace(/(\d+)\s*\\frac\{([^{}]+)\}\{([^{}]+)\}/g, (_, whole, num, den) => {
+        return `<span class="font-bold">${whole}</span><span class="v-frac"><span class="v-num">${cleanSimpleOps(num)}</span><span class="v-den">${cleanSimpleOps(den)}</span></span>`;
+      });
+      s = s.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, (_, num, den) => {
+        return `<span class="v-frac"><span class="v-num">${cleanSimpleOps(num)}</span><span class="v-den">${cleanSimpleOps(den)}</span></span>`;
+      });
+      // 若有漏掉反斜線的 frac{a}{b}
+      s = s.replace(/\bfrac\{([^{}]+)\}\{([^{}]+)\}/g, (_, num, den) => {
+        return `<span class="v-frac"><span class="v-num">${cleanSimpleOps(num)}</span><span class="v-den">${cleanSimpleOps(den)}</span></span>`;
+      });
+
+      s = cleanSimpleOps(s);
+      return s;
+    }
+
+    function cleanSimpleOps(str) {
+      if (!str) return "";
+      let s = String(str);
+      // 轉換 LaTeX 運算符號為國小標準直覺數學符號
+      s = s.replace(/\\times\b/g, " × ");
+      s = s.replace(/(?<=[\d\s)}])imes(?=[\d\s({])/g, " × ");
+      s = s.replace(/\\div\b/g, " ÷ ");
+      s = s.replace(/(?<=[\d\s)}])div(?=[\d\s({])/g, " ÷ ");
+      s = s.replace(/\\cdot\b/g, " × ");
+      s = s.replace(/\\(?:dots|cdots|ldots)\b/g, " … ");
+      s = s.replace(/(?<=[\d\s])dots(?=[\d\s?])/g, " … ");
+      s = s.replace(/\^\s*\\circ\b/g, "°");
+      s = s.replace(/\^\s*circ\b/g, "°");
+      s = s.replace(/\\circ\b/g, "°");
+      s = s.replace(/\\perp\b/g, "⊥");
+      s = s.replace(/\bperp\b/g, "⊥");
+      s = s.replace(/\\(?:implies|Rightarrow|rightarrow|to)\b/g, " ➔ ");
+      s = s.replace(/\bimplies\b/g, " ➔ ");
+      s = s.replace(/\\(?:le|leq)\b/g, " ≤ ");
+      s = s.replace(/\\(?:ge|geq)\b/g, " ≥ ");
+      s = s.replace(/\\(?:neq|ne)\b/g, " ≠ ");
+      s = s.replace(/\\approx\b/g, " ≈ ");
+      s = s.replace(/\\triangle\b/g, "△");
+      s = s.replace(/\\(?:quad|qquad|;|,|!)/g, " ");
+      s = s.replace(/\\(?:left|right)/g, "");
+      s = s.replace(/\\%/g, "%");
+      // 處理上標平方與立方
+      s = s.replace(/\^2\b/g, "²");
+      s = s.replace(/\^3\b/g, "³");
+      // 清除殘留的口訣重複前綴与 AI 系統標籤
+      s = s.replace(/避坑口訣：\s*口訣：/g, "避坑口訣：");
+      s = s.replace(/\[NEXT_STEP\]|\[COMPLETED\]/g, "");
+      return s;
+    }
+
+    function formatMathMarkdown(text) {
+      if (!text) return "";
+      let s = cleanElementaryMathTokens(String(text));
+
+      const disp = [];
+      const inl = [];
+
+      // 處理獨立公式區塊 $$...$$：轉為高對比置中算式盒（內部直式分數與符號已轉為純淨 HTML，移除 $$ 符號）
+      s = s.replace(/\$\$([\s\S]*?)\$\$/g, (_, f) => {
+        const cleanedFormula = cleanElementaryMathTokens(f.trim());
+        disp.push(`<div class="math-display-box pdf-avoid-break">${cleanedFormula}</div>`);
+        return `@@DISP_${disp.length - 1}@@`;
+      });
+
+      // 處理行內公式 $...$：移除外圍 $ 符號並保留純淨數學符號與直式分數
+      s = s.replace(/\$([^$\n]+?)\$/g, (_, f) => {
+        const cleanedInline = cleanElementaryMathTokens(f.trim());
+        inl.push(`<span class="font-bold px-0.5">${cleanedInline}</span>`);
+        return `@@INL_${inl.length - 1}@@`;
+      });
+
+      // 若還有單獨殘留的 $ 符號則清除
+      s = s.replace(/\$/g, "");
+
+      s = s.replace(/^###\s+(.+)$/gm, '<div class="md-h3 font-bold text-emerald-300 text-xs sm:text-sm mt-2 mb-1 border-b border-emerald-500/30 pb-1">$1</div>');
+      s = s.replace(/^####\s+(.+)$/gm, '<div class="md-h4 font-bold text-indigo-300 text-xs mt-2 mb-0.5">$1</div>');
+      s = s.replace(/\*\*(.+?)\*\*/g, '<strong class="md-strong text-white font-bold">$1</strong>');
+      s = s.replace(/`([^`\n]+)`/g, '<span class="font-bold text-amber-300">$1</span>');
+      s = s.replace(/\n/g, '<br>');
+
+      s = s.replace(/@@INL_(\d+)@@/g, (_, i) => inl[Number(i)] || "");
+      s = s.replace(/@@DISP_(\d+)@@/g, (_, i) => disp[Number(i)] || "");
+      return s;
+    }
+
+    function appendChat(sender, text, imgUrl = null) {
+      const box = document.getElementById('chatMessages');
+      if (!box) return;
+      const div = document.createElement('div');
+      if (sender === 'ai') {
+        div.className = "bg-slate-900 border border-slate-800 rounded-2xl p-3.5 text-xs text-slate-200 leading-relaxed space-y-1";
+        div.innerHTML = formatMathMarkdown(text);
+      } else {
+        div.className = "bg-emerald-600 text-white rounded-2xl p-3 text-xs leading-relaxed ml-auto max-w-[85%]";
+        div.innerHTML = (imgUrl ? `<img src="${imgUrl}" class="max-h-32 rounded-lg mb-2 border border-white/20">` : '') + formatMathMarkdown(text);
+      }
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+  </script>
+</body>
+</html>
